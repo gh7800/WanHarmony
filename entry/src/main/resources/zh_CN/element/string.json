@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "WanHarmony"
+    },
+    {
+      "name": "Submit",
+      "value": "提  交"
     }
   ]
 }
