@@ -16,5 +16,16 @@
       "name": "Submit",
       "value": "提  交"
     }
+  ,{
+      "name": "LoginAbility_desc",
+      "value": "description"
+    },{
+      "name": "LoginAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "PleaseEnter",
+      "value": "请输入"
+    }
   ]
 }

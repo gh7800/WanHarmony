@@ -3,6 +3,22 @@
     {
       "name": "app_name",
       "value": "WanHarmony"
+    },
+    {
+      "name": "bluetooth",
+      "value": "允许获取您的蓝牙权限?"
+    },
+    {
+      "name": "internet",
+      "value": "允许获取您的网络连接?"
+    },
+    {
+      "name": "camera",
+      "value": "允许获取您的相机?"
+    },
+    {
+      "name": "location",
+      "value": "允许获取您的位置?"
     }
   ]
 }

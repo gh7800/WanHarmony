@@ -4,4 +4,5 @@
 #### 2、ts → ArkTs 方舟ts 开发语言
 #### 3、ArkUI 方舟ui UI框架
 
+![ArkTs](/image/s2.png)
 ![ArkTs](/image/s1.png)

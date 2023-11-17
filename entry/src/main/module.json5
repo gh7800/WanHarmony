@@ -32,9 +32,24 @@
         ]
       }
     ],
-    "requestPermissions": [
+    "requestPermissions": [ //配置应用权限
       {
         "name": "ohos.permission.USE_BLUETOOTH",
+        'reason': "$string:bluetooth"
+      },
+      {
+        "name": "ohos.permission.INTERNET",
+        'reason': '$string:internet'
+      },
+      {
+        "name": 'ohos.permission.CAMERA',
+        "reason": '$string:camera',
+        'usedScene': {
+          'abilities': []
+        }
+      },
+      {
+        "name": 'ohos.permission.LOCATION'
       }
     ]
   }
