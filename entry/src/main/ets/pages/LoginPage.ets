@@ -1,6 +1,6 @@
 @Entry
 @Component
-struct LoginIndex {
+struct LoginPage {
   @State message: string = 'Login'
   private  username: string = ''
   private  password: string = ''
