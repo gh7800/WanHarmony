@@ -4,13 +4,13 @@ import window from '@ohos.window';
 
 export default class EntryAbility extends UIAbility {
 
-  //1、最先执行
+  //1、应用初始化
   onCreate(want, launchParam) {
     console.error("onCreate")
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
-  //2、
+  //1、1 窗口回调
   onWindowStageCreate(windowStage: window.WindowStage) {
     console.error("onWindowStageCreate")
     // Main window is created, set main page for this ability
@@ -25,13 +25,14 @@ export default class EntryAbility extends UIAbility {
     });
   }
 
-  //3、在前台
+  //2、在前台
   onForeground() {
     console.error("onForeground")
     // Ability has brought to foreground
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
   }
 
+  //3、页面不可见
   onBackground() {
     console.error("onBackground")
     // Ability has back to background
@@ -44,6 +45,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
   }
 
+  //4、销毁
   onDestroy() {
     console.error("onDestroy")
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');

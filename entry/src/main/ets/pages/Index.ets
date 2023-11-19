@@ -33,7 +33,7 @@ struct Index {
           .margin({ top: 30 })
           .width(150)
           .onClick(() => {
-            router.pushUrl({url:'pages/LoginIndex'},router.RouterMode.Single,(err)=>{ //关闭当前页并打开新的页面
+            router.pushUrl({url:'pages/LoginPage'},router.RouterMode.Single,(err)=>{ //关闭当前页并打开新的页面
               console.error(err.message)
             })
           })
