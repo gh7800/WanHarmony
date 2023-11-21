@@ -1,10 +1,11 @@
 import router from '@ohos.router'
+
 @Entry
 @Component
 struct LoginPage {
   @State message: string = 'Login'
-  private  username: string = ''
-  private  password: string = ''
+  private username: string = ''
+  private password: string = ''
 
   build() {
     Row() {
@@ -49,11 +50,11 @@ struct LoginPage {
             console.error(this.password)
 
             AlertDialog.show({
-              title:'Login',
-              message:'确定登录吗?',
-              alignment:DialogAlignment.Bottom,
-              offset:{dx:0,dy:-30}, //偏移量
-              autoCancel:true,
+              title: 'Login',
+              message: '确定登录吗?',
+              alignment: DialogAlignment.Bottom,
+              offset: { dx: 0, dy: -30 }, //偏移量
+              autoCancel: true,
               /*confirm:{  //只有一个button的警告
                 value:'确定',
                 action:()=>{
@@ -66,17 +67,17 @@ struct LoginPage {
                 console.error("cancel")
               }
               */
-              secondaryButton:{
-                value:'取消',
-                action:()=>{
+              secondaryButton: {
+                value: '取消',
+                action: () => {
                   console.error("cancel")
                 }
               },
-              primaryButton:{
-                value:'确定',
-                action:()=>{
-                  router.pushUrl({url:'/pages/MainPage'},router.RouterMode.Single,(message)=>{
-
+              primaryButton: {
+                value: '确定',
+                action: () => {
+                  router.pushUrl({url:'pages/MainPage' }, router.RouterMode.Single, (err) => {
+                    console.error(err.message)
                   })
                 }
               }
