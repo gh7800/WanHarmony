@@ -31,22 +31,12 @@ struct MainPage {
         TabContent() {
           HomePage()
         }
-        .tabBar(this.TabBuilder('首页',0,$r('app.media.icon'),$r('app.media.ic_home')))
+        .tabBar(this.TabBuilder('首页',0,$r('app.media.ic_home_selected'),$r('app.media.ic_home_normal')))
 
         TabContent() {
           MinePage()
         }
-        .tabBar(this.TabBuilder('知识',1,$r('app.media.icon'),$r('app.media.ic_home')))
-
-        TabContent() {
-          HomePage()
-        }
-        .tabBar(this.TabBuilder('导航',2,$r('app.media.icon'),$r('app.media.ic_home')))
-
-        TabContent() {
-          MinePage()
-        }
-        .tabBar(this.TabBuilder('我的',3,$r('app.media.icon'),$r('app.media.ic_home')))
+        .tabBar(this.TabBuilder('我的',3,$r('app.media.ic_mine_selected'),$r('app.media.ic_mine_normal')))
       }
       .barWidth('100%')
       .barHeight(50)
