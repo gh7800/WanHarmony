@@ -23,7 +23,6 @@ struct MainPage {
 
   build() {
     Column() {
-
       Tabs({
         barPosition: BarPosition.End,
         controller : this.tabsController
@@ -36,7 +35,7 @@ struct MainPage {
         TabContent() {
           MinePage()
         }
-        .tabBar(this.TabBuilder('我的',3,$r('app.media.ic_mine_selected'),$r('app.media.ic_mine_normal')))
+        .tabBar(this.TabBuilder('我的',1,$r('app.media.ic_mine_selected'),$r('app.media.ic_mine_normal')))
       }
       .barWidth('100%')
       .barHeight(50)

@@ -1,14 +1,27 @@
 import data from '@ohos.telephony.data'
+import RefreshAnimHeader from '../view/RefreshAnimHeader'
 
 @Entry
 @Component
 export struct MinePage {
   @State message: string = '我的'
   private data = [1, 2, 3, 4, 5]
+  @State isRefreshing: boolean = false
 
   build() {
     Row() {
       Column() {
+        Refresh({ refreshing: $$this.isRefreshing }){
+            // RefreshAnimHeader()
+        }
+        .width('100%')
+        .onRefreshing(() => {
+        })
+        .onStateChange((status) => {
+          console.error(status.toString())
+        })
+        .backgroundColor(Color.Gray)
+        // .visibility(this.isRefreshing ? Visibility.Visible : Visibility.None)
 
         Row() {
           Button('鸿')
@@ -19,6 +32,9 @@ export struct MinePage {
             .type(ButtonType.Normal)
             .backgroundColor($r('app.color.black'))
             .margin({ left: 10, top: 5 })
+            .onClick((() => {
+              this.isRefreshing = !this.isRefreshing
+            }))
 
           Column() {
             Text('名称')
@@ -60,9 +76,9 @@ export struct MinePage {
                   .margin({ right: 10 })
               }
               .backgroundColor($r('app.color.f2'))
-              .margin({ top: 5, bottom: 5 })
+              .margin({ top: 5 })
               .borderRadius(8)
-              .padding({ top: 5, bottom: 10 })
+              .padding({ top: 5, bottom: 5 })
             }
           })
         }
@@ -72,6 +88,7 @@ export struct MinePage {
       }
       .width('100%')
       .height('100%')
+
     }
     .height('100%')
   }
