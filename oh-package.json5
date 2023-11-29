@@ -1,14 +1,14 @@
 {
-  "name": "wanHarmony",
-  "version": "1.0.0",
-  "description": "这是第一个HarmonyOS APP版本！，版本号v1.0.0.0.0.0.0.0.0.0.0",
-  "main": "",
-  "author": "",
   "license": "",
-  "dependencies": {
-    "@ohos/pulltorefresh": "^2.0.4"
-  },
   "devDependencies": {
     "@ohos/hypium": "1.0.6"
+  },
+  "author": "",
+  "name": "wanHarmony",
+  "description": "这是第一个HarmonyOS APP版本！，版本号v1.0.0.0.0.0.0.0.0.0.0",
+  "main": "",
+  "version": "1.0.0",
+  "dependencies": {
+    "@ohos/pulltorefresh": "2.0.1"//高版本不兼容 API9
   }
 }

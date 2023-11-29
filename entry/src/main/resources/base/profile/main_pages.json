@@ -4,6 +4,7 @@
     "pages/LoginPage",
     "pages/MainPage",
     "pages/HomePage",
-    "pages/MinePage"
+    "pages/MinePage",
+    "pages/SettingPage"
   ]
 }
