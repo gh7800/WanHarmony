@@ -1,17 +1,12 @@
 import router from '@ohos.router'
 
+// 自定义titleBar组件
 @Preview
 @Component
 export struct TitleBarComponent {
-  @State title: string = ''
+  @Prop title: string
   @State menu ?: string = ''
-  controller: TitleBarController = null
-
-  aboutToAppear() {
-    if (this.controller) {
-      this.controller.setItem(this) //绑定controller
-    }
-  }
+  clickMenu: () => void //右侧menu点击事件回调
 
   build() {
     Row() {
@@ -35,7 +30,7 @@ export struct TitleBarComponent {
         .fontWeight(FontWeight.Bold)
         .margin({ right: 20 })
         .onClick(() => {
-          this.controller.clickMenu()
+          this.clickMenu()
         })
 
     }
@@ -46,22 +41,3 @@ export struct TitleBarComponent {
   }
 }
 
-export class TitleBarController {
-  titleBarComponent: TitleBarComponent = null
-
-  setItem(titleBarComponent: TitleBarComponent) {
-    this.titleBarComponent = titleBarComponent
-  }
-
-  changeTitle(title: string) {
-    this.titleBarComponent.title = title
-  }
-
-  changeMenu(menu: string) {
-    this.titleBarComponent.menu = menu
-  }
-
-  clickMenu() {
-
-  }
-}
