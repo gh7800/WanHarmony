@@ -1,4 +1,5 @@
 import router from '@ohos.router'
+import { TitleBarComponent } from '../view/TitleBarComponent'
 
 @Entry
 @Component
@@ -7,18 +8,20 @@ struct SettingPage {
   private name = this.params?.['name']
 
   build() {
-    Row() {
-      Column() {
-        Text(this.name)
-          .fontSize(50)
-          .fontWeight(FontWeight.Bold)
-      }
-      .width('100%')
+
+    Column() {
+      TitleBarComponent({title: 'Setting',menu:'更多'})
+
+      Text(this.name)
+        .fontSize(50)
+        .fontWeight(FontWeight.Bold)
     }
+    .width('100%')
     .height('100%')
+
   }
 
-  private getData() {
+  private clickMenu() {
 
   }
 }
