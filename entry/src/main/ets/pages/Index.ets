@@ -12,13 +12,6 @@ struct Index {
           space: 10, //组件之间的间距
         }
       ) {
-        /*Text(this.message)
-          .fontSize(22)
-          .fontWeight(FontWeight.Bold)*/
-
-        //Divider().height(10).color(Color.Black) //分割线
-
-
         Image($r('app.media.icon'))
           .width(100)
           .height(100)

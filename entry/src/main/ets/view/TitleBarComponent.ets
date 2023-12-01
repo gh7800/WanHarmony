@@ -6,6 +6,7 @@ import router from '@ohos.router'
 export struct TitleBarComponent {
   @Prop title: string
   @State menu ?: string = ''
+  clickBack: () => void //back
   clickMenu: () => void //右侧menu点击事件回调
 
   build() {
@@ -13,8 +14,13 @@ export struct TitleBarComponent {
       Image($r('app.media.ic_back'))
         .width(30)
         .height(30)
+        .margin({ left: 10 })
         .onClick(() => {
-          router.back()
+          if (this.clickBack) {
+            this.clickBack()
+          } else {
+            router.back()
+          }
         })
 
       Text(this.title)

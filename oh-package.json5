@@ -9,6 +9,7 @@
   "main": "",
   "version": "1.0.0",
   "dependencies": {
-    "@ohos/pulltorefresh": "2.0.1"//高版本不兼容 API9
+    "@ohos/pulltorefresh": "2.0.1",
+    "@ohos/axios": "^2.1.1"
   }
 }
