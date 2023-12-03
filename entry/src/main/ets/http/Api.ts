@@ -1,11 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '@ohos/axios';
+import ApiResponse from './ApiRsponse';
 
-// 创建一个接口用于定义 API 响应的数据结构
-interface ApiResponse<T = any> {
-  data: T;
-  errorCode: number;
-  errorMsg: string;
-}
 
 // 创建一个自定义的 HTTP 客户端类
 class Api {
@@ -14,17 +9,22 @@ class Api {
   constructor() {
     this.axiosInstance = axios.create({
       // 在这里可以添加自定义配置，如 baseURL、headers 等
-      baseURL: 'https://www.wanandroid.com',
-      timeout: 30000,
+      baseURL: 'https://wanandroid.com',
+      timeout: 5000,
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     });
 
     // 添加请求拦截器
     this.axiosInstance.interceptors.request.use(
       config => {
-        console.log("Request Config：",config.baseURL + config.url)
+        //可添加token等
+
+        console.log("Request Config：",config.method + '___' + config.baseURL + config.url)
+
+        console.log('Request params：',config.params)
+
         return config
       },
       error => {
@@ -33,29 +33,33 @@ class Api {
     );
 
     // 添加响应拦截器
-    this.axiosInstance.interceptors.response.use(
+    /*this.axiosInstance.interceptors.response.use(
       response => {
-        console.log("Response Data：",response.status)
-        return response
+        // 在这里添加你的逻辑，例如处理响应数据
+
+        console.log("Response Data：", response.data)
+        return this.handleResponse(response)
         // return this.handleResponse(response)
       },
       error => {
         return this.handleError(error)
       }
-    );
+    );*/
   }
 
   // 发送 GET 请求
-  public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.axiosInstance.get<ApiResponse<T>>(url, config)
-      .then(response => response.data.data)
+  public async get<ApiResponse>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse> {
+    return await this.axiosInstance.get<ApiResponse>(url, config)
+      .then(response => response.data)
       .catch(this.handleError);
   }
 
   // 发送 POST 请求
-  public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    return this.axiosInstance.post<ApiResponse<T>>(url, data, config)
-      .then(response => response.data.data)
+  public async  post(url: string, data?: any): Promise<ApiResponse> {
+    console.log('username',data?.['username'])
+
+    return await this.axiosInstance.post<ApiResponse>(url, data )
+      .then(response => response.data)
       .catch(this.handleError);
   }
 
@@ -64,6 +68,7 @@ class Api {
   // 处理响应拦截
   private handleResponse<T>(response: AxiosResponse<T> | null): T {
     // 检查响应对象是否存在
+
     if (response && response.data !== undefined && response.data !== null) {
       return response.data;
     } else {

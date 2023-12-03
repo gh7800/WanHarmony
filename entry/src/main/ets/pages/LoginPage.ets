@@ -3,13 +3,16 @@ import promptAction from '@ohos.promptAction'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 import api from '../http/Api'
 import UserModel from '../model/UserModel'
+import { AppResponse } from '@system.app'
+import ApiResponse from '../http/ApiRsponse'
+import SystemModel from '../model/SystemModel'
 
 @Entry
 @Component
 struct LoginPage {
   @State message: string = 'Login'
-  private username: string = ''
-  private password: string = ''
+  private username: string = 'bjwangs'
+  private password: number = 1223456
 
   build() {
     Column() {
@@ -21,7 +24,7 @@ struct LoginPage {
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
-        TextInput({ placeholder: '请输入账号',text:'18500555160' })
+        TextInput({ placeholder: '请输入账号', text: '' })
           .width('85%')
           .height(50)
           .type(InputType.Normal)
@@ -31,7 +34,7 @@ struct LoginPage {
             this.username = value
           })
 
-        TextInput({ placeholder: '请输入密码',text:'654321' })
+        TextInput({ placeholder: '请输入密码', text: '' })
           .width('85%')
           .height(50)
           .margin({ top: 10 })
@@ -39,7 +42,7 @@ struct LoginPage {
           .maxLength(16)
           .enterKeyType(EnterKeyType.Go)
           .onChange((value: string) => {
-            this.password = value
+            //this.password = value
           })
           .onSubmit((keyType: EnterKeyType) => {
             if (keyType == EnterKeyType.Done) {
@@ -71,7 +74,7 @@ struct LoginPage {
       return
     }
 
-    if (this.password.trim()) {
+    if (this.password) {
 
     } else {
       promptAction.showToast({ message: '密码不能为空' })
@@ -79,19 +82,26 @@ struct LoginPage {
     }
 
     const params = {
-      username : this.username,
-      password : this.password
+      username: this.username,
+      password: this.password
     }
 
-    console.log("params",params.username +'__'+ params.password)
+    api.post('/user/login', params)
+      .then((response : ApiResponse<UserModel>) => {
+        console.log('result__',response.errorMsg)
+      })
+      .catch(error => {
+        promptAction.showToast(error)
+        console.error(error)
+      })
 
-    api.post<UserModel>("/user/login",params)
-      .then(response => {
-        console.log('___',response.name)
+    /*api.get<ApiResponse<Array<SystemModel>>>("/tree/json")
+      .then((response : ApiResponse<Array<SystemModel>>)=> {
+        console.log('result___',response.data[0].name)
       })
       .catch(error => {
         console.error(error)
-      })
+      })*/
 
     /*router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
       console.error(err.message)

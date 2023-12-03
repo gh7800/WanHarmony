@@ -1,3 +1,3 @@
 export default class UserModel{
-  public name;
+  username : string
 }
