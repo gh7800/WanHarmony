@@ -21,45 +21,35 @@ class Api {
       config => {
         //可添加token等
 
-        console.log("Request Config：",config.method + '___' + config.baseURL + config.url)
+        console.log("Request Config：", config.method + '___' + config.baseURL + config.url)
 
-        console.log('Request params：',config.params)
+        if (config.params) {
+          console.log('Request params：', JSON.stringify(config.params))
+        }
 
+        if (config.data) {
+          console.log('Request data：', JSON.stringify(config.data))
+          config.params = config.data //??post传的data需要赋值给params
+        }
         return config
       },
       error => {
         return Promise.reject(error)
       }
     );
-
-    // 添加响应拦截器
-    /*this.axiosInstance.interceptors.response.use(
-      response => {
-        // 在这里添加你的逻辑，例如处理响应数据
-
-        console.log("Response Data：", response.data)
-        return this.handleResponse(response)
-        // return this.handleResponse(response)
-      },
-      error => {
-        return this.handleError(error)
-      }
-    );*/
   }
 
   // 发送 GET 请求
-  public async get<ApiResponse>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse> {
-    return await this.axiosInstance.get<ApiResponse>(url, config)
-      .then(response => response.data)
+  public async get(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
+    return await this.axiosInstance.get<ApiResponse>(url, { params } )
+      .then(response => this.handleResponse(response))
       .catch(this.handleError);
   }
 
   // 发送 POST 请求
-  public async  post(url: string, data?: any): Promise<ApiResponse> {
-    console.log('username',data?.['username'])
-
-    return await this.axiosInstance.post<ApiResponse>(url, data )
-      .then(response => response.data)
+  public async post(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
+    return await this.axiosInstance.post<ApiResponse>(url, null, { params })
+      .then(response => this.handleResponse(response))
       .catch(this.handleError);
   }
 
@@ -68,6 +58,7 @@ class Api {
   // 处理响应拦截
   private handleResponse<T>(response: AxiosResponse<T> | null): T {
     // 检查响应对象是否存在
+    console.log('response--：', JSON.stringify(response.data))
 
     if (response && response.data !== undefined && response.data !== null) {
       return response.data;

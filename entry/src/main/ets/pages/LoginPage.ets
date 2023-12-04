@@ -12,7 +12,7 @@ import SystemModel from '../model/SystemModel'
 struct LoginPage {
   @State message: string = 'Login'
   private username: string = 'bjwangs'
-  private password: number = 1223456
+  private password: string = '123456'
 
   build() {
     Column() {
@@ -42,7 +42,7 @@ struct LoginPage {
           .maxLength(16)
           .enterKeyType(EnterKeyType.Go)
           .onChange((value: string) => {
-            //this.password = value
+            this.password = value
           })
           .onSubmit((keyType: EnterKeyType) => {
             if (keyType == EnterKeyType.Done) {
@@ -88,23 +88,29 @@ struct LoginPage {
 
     api.post('/user/login', params)
       .then((response : ApiResponse<UserModel>) => {
-        console.log('result__',response.errorMsg)
+        console.log('result__',response.data.username)
+
+        router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
+          console.error(err.message)
+        })
       })
       .catch(error => {
         promptAction.showToast(error)
         console.error(error)
       })
 
-    /*api.get<ApiResponse<Array<SystemModel>>>("/tree/json")
-      .then((response : ApiResponse<Array<SystemModel>>)=> {
-        console.log('result___',response.data[0].name)
+    /*const params1 = {
+      author: '鸿洋'
+    }
+    var page = 0
+    api.get("/article/list/"+ page + "/json", params1)
+      .then((response: ApiResponse) => {
+        console.log('result___', JSON.stringify(response.data))
       })
       .catch(error => {
         console.error(error)
       })*/
 
-    /*router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
-      console.error(err.message)
-    })*/
+
   }
 }
