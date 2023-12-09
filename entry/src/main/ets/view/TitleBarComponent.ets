@@ -6,8 +6,10 @@ import router from '@ohos.router'
 export struct TitleBarComponent {
   @Prop title: string
   @State menu ?: string = ''
+  private isNeedBack : boolean = true
   clickBack: () => void //back
   clickMenu: () => void //右侧menu点击事件回调
+  bgColor = $r('app.color.main')
 
   build() {
     Row() {
@@ -15,6 +17,7 @@ export struct TitleBarComponent {
         .width(30)
         .height(30)
         .margin({ left: 10 })
+        .visibility(this.isNeedBack == true ? Visibility.Visible : Visibility.None)
         .onClick(() => {
           if (this.clickBack) {
             this.clickBack()
@@ -43,7 +46,7 @@ export struct TitleBarComponent {
     .width('100%')
     .height(56)
     .alignItems(VerticalAlign.Center)
-    .backgroundColor($r('app.color.main'))
+    .backgroundColor(this.bgColor)
   }
 }
 

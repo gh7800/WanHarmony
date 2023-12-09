@@ -9,8 +9,8 @@ class Api {
   constructor() {
     this.axiosInstance = axios.create({
       // 在这里可以添加自定义配置，如 baseURL、headers 等
-      baseURL: 'https://wanandroid.com',
-      timeout: 5000,
+      baseURL: 'http://xcoa.hwapp.site/',
+      timeout: 3000,
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,12 +1,12 @@
 // API 响应的数据结构
 export default class ApiResponse<T = any> {
   data: T;
-  errorCode: number;
-  errorMsg: string;
+  success: boolean;
+  message: string;
 
-  constructor(errorCode,errorMsg) {
-    if(errorCode != 0){
-      throw new Error(errorMsg)
+  constructor(success : boolean,message : string) {
+    if(!success){
+      throw new Error(message)
     }
   }
 }

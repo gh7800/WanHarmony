@@ -3,20 +3,28 @@ import promptAction from '@ohos.promptAction'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 import api from '../http/Api'
 import UserModel from '../model/UserModel'
-import { AppResponse } from '@system.app'
 import ApiResponse from '../http/ApiRsponse'
-import SystemModel from '../model/SystemModel'
+import LoadingDialog from '../view/LoadingDialog'
 
 @Entry
 @Component
 struct LoginPage {
   @State message: string = 'Login'
-  private username: string = 'bjwangs'
-  private password: string = '123456'
+  private username: string = ''
+  private password: string = ''
+  @State isLoading: boolean = false
+  dialogController = new CustomDialogController({
+    builder: LoadingDialog(),
+    customStyle : true,
+    cancel: () => {
+      promptAction.showToast({ message: '已取消登录' })
+    }
+  })
 
   build() {
     Column() {
-      TitleBarComponent({ title: '' })
+      TitleBarComponent({ title: '', bgColor: $r('app.color.ff') })
+
       Column() {
         Text(this.message)
           .fontColor(Color.Orange)
@@ -24,7 +32,7 @@ struct LoginPage {
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
-        TextInput({ placeholder: '请输入账号', text: '' })
+        TextInput({ placeholder: '请输入账号', text: '0002005' })
           .width('85%')
           .height(50)
           .type(InputType.Normal)
@@ -34,7 +42,7 @@ struct LoginPage {
             this.username = value
           })
 
-        TextInput({ placeholder: '请输入密码', text: '' })
+        TextInput({ placeholder: '请输入密码', text: '0002005' })
           .width('85%')
           .height(50)
           .margin({ top: 10 })
@@ -60,6 +68,11 @@ struct LoginPage {
       .width('100%')
       .layoutWeight(1)
       .justifyContent(FlexAlign.Center)
+
+      /*if (this.isLoading) {
+        LoadingDialog()
+      }*/
+
     }
     .height("100%")
 
@@ -86,17 +99,26 @@ struct LoginPage {
       password: this.password
     }
 
-    api.post('/user/login', params)
-      .then((response : ApiResponse<UserModel>) => {
-        console.log('result__',response.data.username)
+    this.dialogController.open()
 
-        router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
-          console.error(err.message)
-        })
+    api.post('/auth/login', params)
+      .then((response: ApiResponse<UserModel>) => {
+        promptAction.showToast({ message: '登录成功' })
+        var user = response.data
+
+        setTimeout(() => {
+          this.dialogController.close()
+
+          router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
+            console.error(err.message)
+          })
+        }, 1000)
+
       })
       .catch(error => {
         promptAction.showToast(error)
         console.error(error)
+        this.isLoading = false
       })
 
     /*const params1 = {

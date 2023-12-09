@@ -1,5 +1,3 @@
-import data from '@ohos.telephony.data'
-import RefreshAnimHeader from '../view/RefreshAnimHeader'
 import { PullToRefresh, PullToRefreshConfigurator } from '@ohos/pulltorefresh'
 import router from '@ohos.router'
 
@@ -11,7 +9,6 @@ export struct MinePage {
   @State isRefreshing: boolean = false
   private scroller: Scroller = new Scroller();
   @State data: string[] = this.list
-  private pullToRefreshConfigurator = new PullToRefreshConfigurator();
 
   build() {
     Row() {
@@ -19,7 +16,6 @@ export struct MinePage {
         PullToRefresh({
           data: $data,
           scroller: this.scroller,
-          //refreshConfigurator:this.pullToRefreshConfigurator,
           customList: () => {
             this.getListView()
           },
