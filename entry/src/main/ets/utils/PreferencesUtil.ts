@@ -13,59 +13,45 @@ class PreferenceUtil {
     var promise = Preferences.getPreferences(context, this.preferencesName)
     promise.then((object) => {
       this.preferenceInstance = object
-      console.error('获取成功')
-      /*object.put(constantUtil.REAL_NAME, 'anxu').then((data) => {
-        console.error('____' + this.preferenceInstance + '___' + data)
-      }).catch((err) => {
-        console.error(err)
-      })
-      */
     }).catch((err) => {
-      console.error('err', err)
+      console.error('实例获取失败__err', err)
     })
-
-
   }
 
   save(key: string, value: string) {
-    this.preferenceInstance.put(key, value, (err, data) => {
+    this.preferenceInstance.put(key, value, (err) => {
       if (err) {
-        console.error('save_err', err)
+        console.error('保存失败_err', err)
       } else {
         console.error('保存成功')
       }
     })
+
+    this.preferenceInstance.flush()//数据量大时使用，避免保存失败
   }
 
-  getString(key: string): string {
-     if(null == this.preferenceInstance){
-       return 'NULL'
-     }
-
-    this.preferenceInstance.get(key, '', (err, data) => {
-      if (err) {
-        console.error('111_' + err)
-        return err
-      } else {
-        console.error('222_' + data)
-        return data
-      }
-    })
-
+  async getString(key: string,def : string = ''){
+      return this.preferenceInstance.get(key, def)
   }
 
-  getNumber(key: string): number {
-    this.preferenceInstance.get(key, 0, (err, data) => {
-      if (err) {
-        return 0
-      } else {
-        return data
-      }
-    })
-    return 0
+  async getNumber(key: string,def : number = 0) {
+    return this.preferenceInstance.get(key, def)
+  }
+
+  async getBoolean(key : string,bl : boolean = false){
+    return this.preferenceInstance.get(key,bl)
+  }
+
+  //删除key
+  async deleteKey(key : string){
+    return this.preferenceInstance.delete(key)
+  }
+
+  //清空所有
+  async clear(){
+    return this.preferenceInstance.clear()
   }
 }
 
 const preferenceUtil = new PreferenceUtil()
-
 export default preferenceUtil

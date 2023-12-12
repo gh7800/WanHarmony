@@ -110,15 +110,12 @@ struct LoginPage {
 
         userManager.saveUser(user)
 
-        var name = preferenceUtil.getString(constantUtil.REAL_NAME)
-        console.error('name___'+name)
-
         setTimeout(() => {
           this.dialogController.close()
 
-          /*router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
+          router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
             console.error(err.message)
-          })*/
+          })
         }, 1000)
 
       })

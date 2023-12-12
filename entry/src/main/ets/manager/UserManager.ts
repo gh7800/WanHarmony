@@ -15,10 +15,6 @@ class UserManager {
     preferenceUtil.save(ConstantUtil.TOKEN,userModel.token)
   }
 
-  /*getUserUuid(): string{
-    return preferenceUtil.getString(constantUtil.USER_UUID)
-  }*/
-
 }
 
 const userManager = new UserManager()
