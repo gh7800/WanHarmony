@@ -5,6 +5,10 @@ import api from '../http/Api'
 import UserModel from '../model/UserModel'
 import ApiResponse from '../http/ApiRsponse'
 import LoadingDialog from '../view/LoadingDialog'
+import userManager from '../manager/UserManager'
+import preferenceUtil from '../utils/PreferencesUtil'
+import constantUtil from '../utils/ConstantUtil'
+import contextConstant from '@ohos.app.ability.contextConstant';
 
 @Entry
 @Component
@@ -12,10 +16,9 @@ struct LoginPage {
   @State message: string = 'Login'
   private username: string = ''
   private password: string = ''
-  @State isLoading: boolean = false
   dialogController = new CustomDialogController({
     builder: LoadingDialog(),
-    customStyle : true,
+    customStyle: true,
     cancel: () => {
       promptAction.showToast({ message: '已取消登录' })
     }
@@ -69,10 +72,6 @@ struct LoginPage {
       .layoutWeight(1)
       .justifyContent(FlexAlign.Center)
 
-      /*if (this.isLoading) {
-        LoadingDialog()
-      }*/
-
     }
     .height("100%")
 
@@ -104,21 +103,28 @@ struct LoginPage {
     api.post('/auth/login', params)
       .then((response: ApiResponse<UserModel>) => {
         promptAction.showToast({ message: '登录成功' })
-        var user = response.data
+
+        var user: UserModel = response.data
+
+        preferenceUtil.getPreferences(getContext())
+
+        userManager.saveUser(user)
+
+        var name = preferenceUtil.getString(constantUtil.REAL_NAME)
+        console.error('name___'+name)
 
         setTimeout(() => {
           this.dialogController.close()
 
-          router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
+          /*router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
             console.error(err.message)
-          })
+          })*/
         }, 1000)
 
       })
       .catch(error => {
+        this.dialogController.close()
         promptAction.showToast(error)
-        console.error(error)
-        this.isLoading = false
       })
 
     /*const params1 = {

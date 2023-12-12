@@ -1,6 +1,7 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import preferenceUtil from '../utils/PreferencesUtil';
 
 export default class EntryAbility extends UIAbility {
 
@@ -8,6 +9,7 @@ export default class EntryAbility extends UIAbility {
   onCreate(want, launchParam) {
     console.error("onCreate")
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+
   }
 
   //1、1 窗口回调
@@ -15,6 +17,8 @@ export default class EntryAbility extends UIAbility {
     console.error("onWindowStageCreate")
     // Main window is created, set main page for this ability
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    preferenceUtil.getPreferences(this.context)
 
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
