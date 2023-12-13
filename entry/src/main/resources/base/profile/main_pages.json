@@ -5,6 +5,7 @@
     "pages/MainPage",
     "pages/HomePage",
     "pages/MinePage",
-    "pages/SettingPage"
+    "pages/SettingPage",
+    "pages/NotificationsPage"
   ]
 }

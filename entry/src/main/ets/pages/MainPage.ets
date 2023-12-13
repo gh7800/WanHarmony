@@ -10,8 +10,8 @@ struct MainPage {
   //自定义tab
   @Builder TabBuilder(title : string,targetIndex : number,selectedImg : Resource,normalImg : Resource){
     Column(){
-      Image(this.currentIndex == targetIndex ? selectedImg : normalImg).size({height:22,width:22})
-      Text(title)
+      Image(this.currentIndex == targetIndex ? selectedImg : normalImg).size({height:25,width:25}).margin({top:5})
+      Text(title).fontSize(16)
     }
     .width('100')
     .height(50)

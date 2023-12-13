@@ -19,6 +19,10 @@ class PreferenceUtil {
   }
 
   save(key: string, value: string) {
+    if(!this.preferenceInstance){
+      throw new Error('preferenceInstance__'+this.preferenceInstance)
+      return
+    }
     this.preferenceInstance.put(key, value, (err) => {
       if (err) {
         console.error('保存失败_err', err)

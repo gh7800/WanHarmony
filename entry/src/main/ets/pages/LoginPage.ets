@@ -7,15 +7,14 @@ import ApiResponse from '../http/ApiRsponse'
 import LoadingDialog from '../view/LoadingDialog'
 import userManager from '../manager/UserManager'
 import preferenceUtil from '../utils/PreferencesUtil'
-import constantUtil from '../utils/ConstantUtil'
-import contextConstant from '@ohos.app.ability.contextConstant';
+import logUtil from '../utils/LogUtil'
 
 @Entry
 @Component
 struct LoginPage {
   @State message: string = 'Login'
-  private username: string = ''
-  private password: string = ''
+  private username: string = null
+  private password: string = null
   dialogController = new CustomDialogController({
     builder: LoadingDialog(),
     customStyle: true,
@@ -23,6 +22,10 @@ struct LoginPage {
       promptAction.showToast({ message: '已取消登录' })
     }
   })
+
+  aboutToAppear(){
+    preferenceUtil.getPreferences(getContext())
+  }
 
   build() {
     Column() {
@@ -35,7 +38,7 @@ struct LoginPage {
           .fontWeight(FontWeight.Bold)
           .margin({ bottom: 20 })
 
-        TextInput({ placeholder: '请输入账号', text: '0002005' })
+        TextInput({ placeholder: '请输入账号' })
           .width('85%')
           .height(50)
           .type(InputType.Normal)
@@ -45,7 +48,7 @@ struct LoginPage {
             this.username = value
           })
 
-        TextInput({ placeholder: '请输入密码', text: '0002005' })
+        TextInput({ placeholder: '请输入密码'})
           .width('85%')
           .height(50)
           .margin({ top: 10 })
@@ -79,16 +82,12 @@ struct LoginPage {
 
   /**login*/
   private login() {
-    if (this.username.trim()) {
-
-    } else {
+    if (!this.username) {
       promptAction.showToast({ message: '账号不能为空' })
       return
     }
 
-    if (this.password) {
-
-    } else {
+    if (!this.password) {
       promptAction.showToast({ message: '密码不能为空' })
       return
     }
@@ -104,11 +103,7 @@ struct LoginPage {
       .then((response: ApiResponse<UserModel>) => {
         promptAction.showToast({ message: '登录成功' })
 
-        var user: UserModel = response.data
-
-        preferenceUtil.getPreferences(getContext())
-
-        userManager.saveUser(user)
+        userManager.saveUser(response.data)
 
         setTimeout(() => {
           this.dialogController.close()
@@ -123,19 +118,6 @@ struct LoginPage {
         this.dialogController.close()
         promptAction.showToast(error)
       })
-
-    /*const params1 = {
-      author: '鸿洋'
-    }
-    var page = 0
-    api.get("/article/list/"+ page + "/json", params1)
-      .then((response: ApiResponse) => {
-        console.log('result___', JSON.stringify(response.data))
-      })
-      .catch(error => {
-        console.error(error)
-      })*/
-
 
   }
 }

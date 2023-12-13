@@ -16,8 +16,7 @@ export struct TitleBarComponent {
       Image($r('app.media.ic_back'))
         .width(30)
         .height(30)
-        .margin({ left: 10 })
-        .visibility(this.isNeedBack == true ? Visibility.Visible : Visibility.None)
+        .visibility(this.isNeedBack == true ? Visibility.Visible : Visibility.Hidden)
         .onClick(() => {
           if (this.clickBack) {
             this.clickBack()
@@ -27,7 +26,7 @@ export struct TitleBarComponent {
         })
 
       Text(this.title)
-        .fontSize(16)
+        .fontSize(18)
         .fontColor(Color.White)
         .fontWeight(FontWeight.Bold)
         .layoutWeight(1)
