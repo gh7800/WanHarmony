@@ -11,10 +11,10 @@ struct MainPage {
   @Builder TabBuilder(title : string,targetIndex : number,selectedImg : Resource,normalImg : Resource){
     Column(){
       Image(this.currentIndex == targetIndex ? selectedImg : normalImg).size({height:25,width:25}).margin({top:5})
-      Text(title).fontSize(16)
+      Text(title).fontSize(16).margin({bottom:5})
     }
-    .width('100')
-    .height(50)
+    .width(100)
+    .height(66)
     .onClick(()=>{
       this.currentIndex = targetIndex
       this.tabsController.changeIndex(targetIndex)//切换页面

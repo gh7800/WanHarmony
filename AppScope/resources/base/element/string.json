@@ -19,6 +19,10 @@
     {
       "name": "location",
       "value": "允许获取您的位置?"
+    },
+    {
+      "name": "approximatelyLocation",
+      "value": "允许获取您的大致位置?"
     }
   ]
 }

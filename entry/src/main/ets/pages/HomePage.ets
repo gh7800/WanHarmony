@@ -18,9 +18,10 @@ export struct HomePage {
 
   aboutToAppear() {
 
-    preferenceUtil.getString(constantUtil.REAL_NAME).then((data: string) => {
-      this.realName = data
-    })
+    preferenceUtil.getString(constantUtil.REAL_NAME)
+      .then((data: string) => {
+        this.realName = data
+      })
       .catch((err) => {
         logUtil.error(err)
       })
@@ -73,7 +74,7 @@ export struct HomePage {
               .onClick((event) => {
                 switch (index) {
                   case 0:
-                    router.pushUrl({url:'pages/NotificationsPage',params:{}})
+                    router.pushUrl({ url: 'pages/NotificationsPage', params: {} })
                     break
                   default:
                     break

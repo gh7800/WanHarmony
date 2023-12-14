@@ -16,7 +16,7 @@ export struct TitleBarComponent {
       Image($r('app.media.ic_back'))
         .width(30)
         .height(30)
-        .visibility(this.isNeedBack == true ? Visibility.Visible : Visibility.Hidden)
+        .visibility(this.isNeedBack ? Visibility.Visible : Visibility.Hidden)
         .onClick(() => {
           if (this.clickBack) {
             this.clickBack()

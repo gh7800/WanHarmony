@@ -108,7 +108,7 @@ struct LoginPage {
         setTimeout(() => {
           this.dialogController.close()
 
-          router.pushUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
+          router.replaceUrl({ url: 'pages/MainPage' }, router.RouterMode.Single, (err) => {
             console.error(err.message)
           })
         }, 1000)

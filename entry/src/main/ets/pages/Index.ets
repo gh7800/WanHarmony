@@ -1,9 +1,17 @@
 import router from '@ohos.router'
 import hilog from '@ohos.hilog'
+import preferenceUtil from '../utils/PreferencesUtil'
+import constantUtil from '../utils/ConstantUtil'
+import toastUtil from '../utils/ToastUtil'
+import logUtil from '../utils/LogUtil'
+
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World'
+
+  aboutToAppear(){
+    preferenceUtil.getPreferences(getContext())
+  }
 
   build() {
     Row() {
@@ -26,9 +34,19 @@ struct Index {
           .margin({ top: 30 })
           .width(150)
           .onClick(() => {
-            router.pushUrl({url:'pages/LoginPage'},router.RouterMode.Single,(err)=>{ //关闭当前页并打开新的页面
-              console.error(err.message)
-            })
+            var url = 'pages/LoginPage'
+            preferenceUtil.getString(constantUtil.TOKEN)
+              .then((data) => {
+                if (data) {
+                  url = 'pages/MainPage'
+                }
+                this.startPage(url)
+              })
+              .catch((err) => {
+                toastUtil.show(err)
+                this.startPage(url)
+              })
+
           })
       }
       .width('100%')
@@ -39,5 +57,12 @@ struct Index {
     .height('100%')
     .alignItems(VerticalAlign.Bottom)
     .padding({ bottom: 100 })
+  }
+
+  startPage(url: string) {
+    logUtil.error(url.replace('/','-'))
+    router.replaceUrl({ url }, router.RouterMode.Single, (err) => { //关闭当前页并打开新的页面
+      console.error(err.message)
+    })
   }
 }
