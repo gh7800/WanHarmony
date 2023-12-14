@@ -38,7 +38,9 @@ export struct TitleBarComponent {
         .fontWeight(FontWeight.Bold)
         .margin({ right: 20 })
         .onClick(() => {
-          this.clickMenu()
+          if(this.clickMenu){
+            this.clickMenu()
+          }
         })
 
     }

@@ -5,6 +5,7 @@ export struct CommonTitleContent {
   @Prop content: string
   iconTitle: string
   iconRight: string
+  onclick : ()=>void
 
   build() {
     Row() {
@@ -29,6 +30,11 @@ export struct CommonTitleContent {
     .borderRadius(8)
     .margin({ left: 10, top: 5, right: 10 })
     .padding({ top: 5, bottom: 5 })
+    .onClick(()=>{
+      if(this.onclick){
+        this.onclick()
+      }
+    })
   }
 
 }

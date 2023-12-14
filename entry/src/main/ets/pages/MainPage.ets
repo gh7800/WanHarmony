@@ -4,7 +4,7 @@ import { MinePage } from './MinePage'
 @Entry
 @Component
 struct MainPage {
-  private tabsController : TabsController = new TabsController();
+  tabsController : TabsController = new TabsController();
   @State currentIndex : number = 0
 
   //自定义tab

@@ -24,7 +24,7 @@ struct LoginPage {
   })
 
   aboutToAppear(){
-    preferenceUtil.getPreferences(getContext())
+    //preferenceUtil.getPreferences(getContext())
   }
 
   build() {

@@ -1,5 +1,4 @@
 import router from '@ohos.router'
-import hilog from '@ohos.hilog'
 import preferenceUtil from '../utils/PreferencesUtil'
 import constantUtil from '../utils/ConstantUtil'
 import toastUtil from '../utils/ToastUtil'
@@ -35,6 +34,7 @@ struct Index {
           .width(150)
           .onClick(() => {
             var url = 'pages/LoginPage'
+            // ...
             preferenceUtil.getString(constantUtil.TOKEN)
               .then((data) => {
                 if (data) {
@@ -51,7 +51,6 @@ struct Index {
       }
       .width('100%')
       .padding(22)
-      //.backgroundColor(Color.Pink)
 
     }
     .height('100%')
@@ -60,7 +59,8 @@ struct Index {
   }
 
   startPage(url: string) {
-    logUtil.error(url.replace('/','-'))
+
+    logUtil.error('11')
     router.replaceUrl({ url }, router.RouterMode.Single, (err) => { //关闭当前页并打开新的页面
       console.error(err.message)
     })

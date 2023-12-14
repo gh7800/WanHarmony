@@ -74,7 +74,7 @@ export struct HomePage {
               .onClick((event) => {
                 switch (index) {
                   case 0:
-                    router.pushUrl({ url: 'pages/NotificationsPage', params: {} })
+                    router.pushUrl({ url: 'pages/NotificationsPage' })
                     break
                   default:
                     break

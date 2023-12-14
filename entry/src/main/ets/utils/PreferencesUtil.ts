@@ -1,5 +1,6 @@
 import Preferences from '@ohos.data.preferences'
 import constantUtil from './ConstantUtil'
+import logUtil from './LogUtil'
 
 /**
  * K-V 首选项
@@ -13,8 +14,9 @@ class PreferenceUtil {
     var promise = Preferences.getPreferences(context, this.preferencesName)
     promise.then((object) => {
       this.preferenceInstance = object
+      logUtil.error('获取实例成功')
     }).catch((err) => {
-      console.error('实例获取失败__err', err)
+      logUtil.error('实例获取失败__err' + err)
     })
   }
 
