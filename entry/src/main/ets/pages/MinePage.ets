@@ -131,6 +131,8 @@ export struct MinePage {
             return;
           }
         }
+
+
       })
       .catch((err) => {
         logUtil.error(err)
