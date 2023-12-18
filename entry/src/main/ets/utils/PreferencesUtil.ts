@@ -14,7 +14,7 @@ class PreferenceUtil {
     var promise = Preferences.getPreferences(context, this.preferencesName)
     promise.then((object) => {
       this.preferenceInstance = object
-      logUtil.error('获取实例成功')
+      logUtil.error('获取实例成功_'+object)
     }).catch((err) => {
       logUtil.error('实例获取失败__err' + err)
     })

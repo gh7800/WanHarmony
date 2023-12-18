@@ -7,8 +7,7 @@ import logUtil from '../utils/LogUtil'
 @Entry
 @Component
 struct Index {
-
-  aboutToAppear(){
+  aboutToAppear() {
     preferenceUtil.getPreferences(getContext())
   }
 
@@ -34,16 +33,18 @@ struct Index {
           .width(150)
           .onClick(() => {
             var url = 'pages/LoginPage'
-            // ...
+            // ....
             preferenceUtil.getString(constantUtil.TOKEN)
               .then((data) => {
+                logUtil.error(data.toString())
                 if (data) {
                   url = 'pages/MainPage'
                 }
-                this.startPage(url)
               })
               .catch((err) => {
                 toastUtil.show(err)
+              })
+              .finally(() => {
                 this.startPage(url)
               })
 
@@ -59,8 +60,6 @@ struct Index {
   }
 
   startPage(url: string) {
-
-    logUtil.error('11')
     router.replaceUrl({ url }, router.RouterMode.Single, (err) => { //关闭当前页并打开新的页面
       console.error(err.message)
     })

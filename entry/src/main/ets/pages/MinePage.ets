@@ -7,6 +7,7 @@ import preferenceUtil from '../utils/PreferencesUtil'
 import constantUtil from '../utils/ConstantUtil'
 import { CommonTitleContent } from '../view/CommonTitleContent'
 import toastUtil from '../utils/ToastUtil'
+import { MediaHelper } from '../manager/MediaHelper'
 
 
 @Entry
@@ -125,6 +126,7 @@ export struct MinePage {
           if (grantStatus[i] === 0) {
             // 用户授权，可以继续访问目标操作
             logUtil.error('已同意')
+            this.takePhoto()
           } else {
             toastUtil.show('已禁止-' + grantName[i])
             // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
@@ -137,5 +139,10 @@ export struct MinePage {
       .catch((err) => {
         logUtil.error(err)
       })
+  }
+
+  takePhoto(){
+    let mediaHelper = new MediaHelper(getContext())
+    mediaHelper.takePhoto(getContext() as common.UIAbilityContext)
   }
 }
