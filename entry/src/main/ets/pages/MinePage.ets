@@ -8,6 +8,7 @@ import constantUtil from '../utils/ConstantUtil'
 import { CommonTitleContent } from '../view/CommonTitleContent'
 import toastUtil from '../utils/ToastUtil'
 import { MediaHelper } from '../manager/MediaHelper'
+import {} from '@ohos/dialogs'
 
 
 @Entry
@@ -31,6 +32,8 @@ export struct MinePage {
     preferenceUtil.getString(constantUtil.USERNAME).then((data) => {
       this.userName = data.toString()
     })
+
+
   }
 
   build() {
@@ -142,6 +145,10 @@ export struct MinePage {
       .catch((err) => {
         logUtil.error(err)
       })
+  }
+
+  showPopupDialog(){
+
   }
 
   takePhoto() {
