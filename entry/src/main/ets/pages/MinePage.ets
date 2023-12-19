@@ -17,7 +17,7 @@ export struct MinePage {
   @State isRefreshing: boolean = false
   private scroller: Scroller = new Scroller();
   @State data: string[] = ['账号', '名称', '设置']
-  private permissions: Array<Permissions> = ['ohos.permission.CAMERA', 'ohos.permission.APPROXIMATELY_LOCATION']
+  private permissions: Array<Permissions> = ['ohos.permission.CAMERA','ohos.permission.READ_MEDIA']
   @State realName: string = ''
   @State lastName: string = ''
   @State userName: string = ''
@@ -63,7 +63,7 @@ export struct MinePage {
   @Builder
   private getView() {
     // 刷新组件 需绑定列表或宫格组件
-    List({scroller:this.scroller})
+    List({ scroller: this.scroller })
 
     Row() {
       Button(this.lastName)
@@ -106,9 +106,9 @@ export struct MinePage {
 
     CommonTitleContent({ title: '账号', content: this.userName }).margin({ left: 10, right: 10 })
     CommonTitleContent({ title: '名称', content: this.realName }).margin({ left: 10, right: 10 })
-    CommonTitleContent({ title: '设置', content: '' ,onclick(){
-      router.pushUrl({url:'pages/SettingPage'})
-    }}).margin({ left: 10, right: 10 })
+    CommonTitleContent({ title: '设置', content: '', onclick() {
+      router.pushUrl({ url: 'pages/SettingPage' })
+    } }).margin({ left: 10, right: 10 })
 
 
   }
@@ -122,18 +122,21 @@ export struct MinePage {
         let grantStatus: Array<number> = data.authResults;
         let grantName: Array<string> = data.permissions;
         let length: number = grantStatus.length;
+        var isAgree = true
         for (let i = 0; i < length; i++) {
           if (grantStatus[i] === 0) {
             // 用户授权，可以继续访问目标操作
             logUtil.error('已同意')
-            this.takePhoto()
           } else {
             toastUtil.show('已禁止-' + grantName[i])
             // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
-            return;
+            isAgree = false
           }
         }
 
+        if(isAgree) {
+          this.takePhoto()
+        }
 
       })
       .catch((err) => {
@@ -141,8 +144,12 @@ export struct MinePage {
       })
   }
 
-  takePhoto(){
+  takePhoto() {
     let mediaHelper = new MediaHelper(getContext())
-    mediaHelper.takePhoto(getContext() as common.UIAbilityContext)
+    mediaHelper.takePhoto(getContext() as common.UIAbilityContext).then(mediaBean => {
+      logUtil.error('____'+mediaBean)
+    }).catch(error =>{
+      logUtil.error('error____'+error)
+    })
   }
 }
