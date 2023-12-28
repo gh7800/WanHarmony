@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '@ohos/axios';
 import constantUtil from '../utils/ConstantUtil';
+import logUtil from '../utils/LogUtil';
 import preferenceUtil from '../utils/PreferencesUtil';
 import ApiResponse from './ApiRsponse';
 
@@ -22,10 +23,10 @@ class Api {
     this.axiosInstance.interceptors.request.use(
       config => {
         //可添加token等
-        var token = preferenceUtil.getString(constantUtil.TOKEN)
-        if(token){
-          config.headers.set('Authorization','Bear '+token)
-        }
+        preferenceUtil.getString(constantUtil.TOKEN).then(result =>{
+            logUtil.error('token_'+result)
+            config.headers.set('Authorization','Bear '+result)
+          })
 
         console.error("Request：", config.method + '__' +config.baseURL + config.url)
 

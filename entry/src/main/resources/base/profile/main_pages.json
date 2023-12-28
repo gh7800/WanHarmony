@@ -3,8 +3,6 @@
     "pages/Index",
     "pages/LoginPage",
     "pages/MainPage",
-    "pages/HomePage",
-    "pages/MinePage",
     "pages/SettingPage",
     "pages/NotificationsPage"
   ]

@@ -33,7 +33,7 @@ struct Index {
           .width(150)
           .onClick(() => {
             var url = 'pages/LoginPage'
-            // ....
+
             preferenceUtil.getString(constantUtil.TOKEN)
               .then((data) => {
                 logUtil.error(data.toString())

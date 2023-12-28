@@ -9,7 +9,6 @@ import { TitleBarComponent } from '../view/TitleBarComponent'
 @Entry
 @Component
 export struct HomePage {
-  @State message: string = '首页'
   @State realName: string = ''
   private menuTitle: string[] = ['通知', '请示', '内部发文', '公文流转', '用车', '会议', '资产管理', '公章证照']
   private menuIcon =
@@ -28,6 +27,10 @@ export struct HomePage {
 
   }
 
+  onPageShow() {
+    logUtil.error('__home__')
+  }
+
   @Styles commonStyle(){ //共有通用属性
     .margin({ left: 10, right: 10 })
     .height(45)
@@ -35,7 +38,7 @@ export struct HomePage {
 
   build() {
     Column() {
-      TitleBarComponent({ title: this.message, isNeedBack: false })
+      //TitleBarComponent({ title: this.message, isNeedBack: false })
 
       Row() {
         Text('2023/12/09 星期六')
@@ -76,6 +79,11 @@ export struct HomePage {
                   case 0:
                     router.pushUrl({ url: 'pages/NotificationsPage' })
                     break
+                  case 2:
+                    preferenceUtil.clear()
+                    router.replaceUrl({ url: 'pages/LoginPage' })
+                    break
+
                   default:
                     break
                 }

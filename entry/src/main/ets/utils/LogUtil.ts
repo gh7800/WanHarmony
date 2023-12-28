@@ -1,6 +1,6 @@
 class LogUtil {
-  error(msg: string) {
-    console.error(msg)
+  error(msg: string | number | boolean) {
+    console.error(msg + '')
   }
 
   info(tag : string,msg : any){

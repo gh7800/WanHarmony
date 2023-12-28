@@ -1,6 +1,7 @@
 import api from '../http/Api'
+import ApiResponse from '../http/ApiRsponse'
+import NotificationModel from '../model/NotificationModel'
 import logUtil from '../utils/LogUtil'
-import toastUtil from '../utils/ToastUtil'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 
 @Entry
@@ -9,8 +10,8 @@ struct NotificationsPage {
 
   aboutToAppear(){
     api.get('api/notice/message')
-      .then(result => {
-        logUtil.error(result.data)
+      .then((result : ApiResponse<Array<NotificationModel>>) => {
+        logUtil.error(result.success)
       })
   }
 

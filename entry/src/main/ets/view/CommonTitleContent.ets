@@ -25,7 +25,6 @@ export struct CommonTitleContent {
         .width(40)
         .height(40)
     }
-    .width('100%')
     .backgroundColor($r('app.color.ff'))
     .borderRadius(8)
     .margin({ left: 10, top: 5, right: 10 })

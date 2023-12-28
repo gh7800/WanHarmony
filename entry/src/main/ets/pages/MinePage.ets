@@ -8,13 +8,11 @@ import constantUtil from '../utils/ConstantUtil'
 import { CommonTitleContent } from '../view/CommonTitleContent'
 import toastUtil from '../utils/ToastUtil'
 import { MediaHelper } from '../manager/MediaHelper'
-import {} from '@ohos/dialogs'
-
+// import {} from '@ohos/dialogs'
 
 @Entry
 @Component
 export struct MinePage {
-  @State message: string = '我的'
   @State isRefreshing: boolean = false
   private scroller: Scroller = new Scroller();
   @State data: string[] = ['账号', '名称', '设置']
@@ -32,8 +30,10 @@ export struct MinePage {
     preferenceUtil.getString(constantUtil.USERNAME).then((data) => {
       this.userName = data.toString()
     })
+  }
 
-
+  onPageShow(){
+    logUtil.error("_____mine_____")
   }
 
   build() {
@@ -79,8 +79,6 @@ export struct MinePage {
         .fontColor($r('app.color.ff'))
         .margin({ left: 5, top: 5 })
         .onClick((() => {
-          // this.isRefreshing = !this.isRefreshing
-
           this.initPermissions(this.permissions)
         }))
 
@@ -107,11 +105,11 @@ export struct MinePage {
     .padding({ top: 5, bottom: 10 })
 
 
-    CommonTitleContent({ title: '账号', content: this.userName }).margin({ left: 10, right: 10 })
-    CommonTitleContent({ title: '名称', content: this.realName }).margin({ left: 10, right: 10 })
+    CommonTitleContent({ title: '账号', content: this.userName })
+    CommonTitleContent({ title: '名称', content: this.realName })
     CommonTitleContent({ title: '设置', content: '', onclick() {
       router.pushUrl({ url: 'pages/SettingPage' })
-    } }).margin({ left: 10, right: 10 })
+    } })
 
 
   }
