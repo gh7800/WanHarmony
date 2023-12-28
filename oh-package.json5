@@ -10,6 +10,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@ohos/axios": "^2.1.1",
-    "@ohos/pulltorefresh": "2.0.1"
+    "@ohos/pulltorefresh": "2.0.1",
+    "@ohos/dialogs": "^1.0.1"
   }
 }

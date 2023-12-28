@@ -23,6 +23,10 @@
     {
       "name": "approximatelyLocation",
       "value": "允许获取您的大致位置?"
+    },
+    {
+      "name": "read_media",
+      "value": "允许读取您的图库/文件？"
     }
   ]
 }
