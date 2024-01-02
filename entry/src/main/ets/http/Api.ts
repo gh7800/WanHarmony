@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '@ohos/axios';
 import constantUtil from '../utils/ConstantUtil';
+import { GlobalContext } from '../utils/GlobalContext';
 import logUtil from '../utils/LogUtil';
 import preferenceUtil from '../utils/PreferencesUtil';
 import ApiResponse from './ApiRsponse';
@@ -8,14 +9,20 @@ import ApiResponse from './ApiRsponse';
 // 创建一个自定义的 HTTP 客户端类
 class Api {
   private axiosInstance: AxiosInstance;
+  private token = GlobalContext.getContext().getValue(constantUtil.TOKEN);
+
+  private baseUrl() {
+    return 'http://xcoa.hwapp.site/'
+  }
 
   constructor() {
     this.axiosInstance = axios.create({
       // 在这里可以添加自定义配置，如 baseURL、headers 等
-      baseURL: 'http://xcoa.hwapp.site/',
+      baseURL: this.baseUrl(),
       timeout: 3000,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
       },
     });
 
@@ -23,12 +30,12 @@ class Api {
     this.axiosInstance.interceptors.request.use(
       config => {
         //可添加token等
-        preferenceUtil.getString(constantUtil.TOKEN).then(result =>{
-            logUtil.error('token_'+result)
-            config.headers.set('Authorization','Bear '+result)
-          })
+        /*logUtil.error('token_' + this.token)
+        if(this.token){
+          config.headers.set('Authorization','Bearer '+this.token)
+        }*/
 
-        console.error("Request：", config.method + '__' +config.baseURL + config.url)
+        console.error("Request：", config.method + '__' + config.baseURL + config.url)
 
         if (config.params) {
           console.error('Request params：', JSON.stringify(config.params))
@@ -37,6 +44,7 @@ class Api {
         return config
       },
       error => {
+        logUtil.error('拦截器_'+error)
         return Promise.reject(error)
       }
     );
@@ -44,36 +52,37 @@ class Api {
 
   // 发送 GET 请求
   public async get(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
-    return await this.axiosInstance.get<ApiResponse>(url, { params } )
+    return await this.axiosInstance.get<ApiResponse>(url, params)
       .then(response => {
-        var apiResponse  = this.handleResponse(response)
-        if(apiResponse.success){
-          return this.handleResponse(response)
-        }else {
+        var apiResponse = this.handleResponse(response)
+        if (apiResponse.success) {
+          return apiResponse
+        } else {
           throw new Error(apiResponse.message)
         }
       })
-      .catch(this.handleError);
+      .catch(this.handleError)
   }
 
   // 发送 POST 请求
   public async post(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
     return await this.axiosInstance.post<ApiResponse>(url, null, {
-      params : params
+      params: params
     })
       .then(response => {
-        var apiResponse  = this.handleResponse(response)
-        if(apiResponse.success){
+        var apiResponse = this.handleResponse(response)
+        if (apiResponse.success) {
           return apiResponse
-        }else {
+        } else {
           throw new Error(apiResponse.message)
         }
       })
-      .catch(this.handleError);
+      .catch(this.handleError)
   }
 
   //取消请求
-  public cancelRequest(){
+  public cancelRequest() {
+    logUtil.error('取消')
     axios.CancelToken.source()
   }
 
@@ -88,14 +97,18 @@ class Api {
       return response.data;
     } else {
       // 如果响应对象或响应体不存在，返回一个默认值或者抛出错误，根据需要调整
-      throw new Error('Invalid response or empty response body');
+      //throw new Error('Invalid response or empty response body');
+
+      this.handleError('Invalid response or empty response body')
     }
   }
 
   // 处理请求错误
-  private handleError(error: any): Promise<never> {
+  private handleError(error: any){
     // 这里可以添加一些全局的错误处理逻辑
-    return Promise.reject(error);
+    logUtil.error('请求错误__' + error)
+    //return Promise.reject(error);
+    return new ApiResponse(false,null,error)
   }
 }
 

@@ -1,8 +1,8 @@
 import promptAction from '@ohos.promptAction'
 
 class ToastUtil {
-  show(msg: string) {
-    promptAction.showToast({ message: msg })
+  show(msg: any) {
+    promptAction.showToast({ message: msg + '' })
   }
 }
 

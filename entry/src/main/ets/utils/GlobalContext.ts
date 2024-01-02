@@ -14,13 +14,25 @@ export class GlobalContext {
 
   getValue(value: string): Object {
     let result = this._objects.get(value);
-    if (!result) {
+    /*if (!result) {
       throw new Error("this value undefined")
-    }
+    }*/
     return result;
   }
 
   setValue(key: string, objectClass: Object): void {
     this._objects.set(key, objectClass);
+  }
+
+  hasKey(key : string){
+    return this._objects.has(key)
+  }
+
+  deleteKey(key : string){
+    return this._objects.delete(key)
+  }
+
+  clear(){
+    this._objects.clear()
   }
 }
