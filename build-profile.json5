@@ -5,10 +5,10 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "storePassword": "0000001A4404E1E33323208BFFDD8239D16737F7A01B7740835227846242569B94F42E597264501231B6",
+          "storePassword": "0000001A37BBC6AD734309F9163FB12F7A2EE5F193681902091EDCFD6E28A054BFE754A7A9220F752D3F",
           "certpath": "D:/keystore/发布证书.cer",
           "keyAlias": "harmony",
-          "keyPassword": "0000001AAD91F43FEE07FF6540615D2FF72B850D4E7314A4CD3A6B88CB9322396313C390969C43B233DA",
+          "keyPassword": "0000001A872590ED1D2821DE9FE92FCB18ED8DFC3BFC00117E2C4C5E0C3479796725550DE86341BF5F77",
           "profile": "D:/keystore/wanHarmonyRelease.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "D:/keystore/WanHarmony.p12"

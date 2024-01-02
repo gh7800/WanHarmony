@@ -9,9 +9,8 @@
   "main": "",
   "version": "1.0.0",
   "dependencies": {
+    "@ohos/mmkv": "2.0.1",
     "@ohos/axios": "^2.1.1",
-    "@ohos/pulltorefresh": "2.0.1",
-    "@ohos/mmkv": "2.0.1" //ohpm install @ohos/mmkv@2.0.2  api10可用
-
+    "@ohos/pulltorefresh": "2.0.1"
   }
 }
