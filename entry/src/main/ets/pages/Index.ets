@@ -3,6 +3,7 @@ import preferenceUtil from '../utils/PreferencesUtil'
 import constantUtil from '../utils/ConstantUtil'
 import toastUtil from '../utils/ToastUtil'
 import logUtil from '../utils/LogUtil'
+import { GlobalContext } from '../utils/GlobalContext'
 
 @Entry
 @Component
@@ -36,8 +37,8 @@ struct Index {
 
             preferenceUtil.getString(constantUtil.TOKEN)
               .then((data) => {
-                logUtil.error(data.toString())
                 if (data) {
+                  GlobalContext.getContext().setValue(constantUtil.TOKEN,data)
                   url = 'pages/MainPage'
                 }
               })

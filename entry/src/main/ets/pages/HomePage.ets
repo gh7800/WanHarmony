@@ -27,10 +27,6 @@ export struct HomePage {
 
   }
 
-  onPageShow() {
-    logUtil.error('__home__')
-  }
-
   @Styles commonStyle(){ //共有通用属性
     .margin({ left: 10, right: 10 })
     .height(45)

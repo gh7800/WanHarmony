@@ -36,7 +36,7 @@ class PreferenceUtil {
     this.preferenceInstance.flush()//数据量大时使用，避免保存失败
   }
 
-  async getString(key: string,def : string = null){
+   getString(key: string,def : string = null){
       return this.preferenceInstance.get(key, def)
   }
 

@@ -2,6 +2,7 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
 import { GlobalContext } from '../utils/GlobalContext';
+import logUtil from '../utils/LogUtil';
 import preferenceUtil from '../utils/PreferencesUtil';
 
 export default class EntryAbility extends UIAbility {
@@ -21,6 +22,8 @@ export default class EntryAbility extends UIAbility {
 
     preferenceUtil.getPreferences(this.context)
     GlobalContext.getContext().setValue('context',this.context.getApplicationContext())
+    var dir = this.context.filesDir
+    logUtil.error(dir)
 
     windowStage.loadContent('pages/Index', (err, data) => {
       if (err.code) {
