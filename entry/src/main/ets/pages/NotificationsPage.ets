@@ -5,7 +5,6 @@ import {
 import api from '../http/Api'
 import ApiResponse from '../http/ApiRsponse'
 import NotificationModel from '../model/NotificationModel'
-import logUtil from '../utils/LogUtil'
 import toastUtil from '../utils/ToastUtil'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 
@@ -15,10 +14,9 @@ struct NotificationsPage {
   @State data: Array<NotificationModel> = null
   private scroller = new Scroller()
   private page = 1
-  protected isRefresh = false
-  private refreshConfig = new PullToRefreshConfigurator().setHasLoadMore(true)
-    .setHasRefresh(true)
-    .setListIsPlacement(false)
+  @State isRefresh : boolean = false
+  private refreshConfig = new PullToRefreshConfigurator()
+    .setRefreshColor('#ffcb3d3d')
 
   aboutToAppear() {
     this.getData()
@@ -34,13 +32,18 @@ struct NotificationsPage {
           result.data.map((value, index) => {
             this.data.push(value)
           })
+          if (result.pagination.current_page >= this.page) {
+            //this.refreshConfig.setHasLoadMore(false)
+          }
         } else {
           this.data = result.data
         }
-        this.isRefresh = true
       })
       .catch(error => {
         toastUtil.show(error)
+      })
+      .finally(()=>{
+        this.isRefresh = true
       })
   }
 
@@ -68,9 +71,9 @@ struct NotificationsPage {
         .backgroundColor($r('app.color.ff'))
       })
     }
-    .width('100%')
+    .layoutWeight(1)
     .height('100%')
-    .margin({left:10,right:10})
+    .margin({ left: 10, right: 10 })
     .edgeEffect(EdgeEffect.None) // 必须设置列表为滑动到边缘无效果
   }
 
@@ -90,7 +93,7 @@ struct NotificationsPage {
             this.page = 1
             this.getData()
             if (this.isRefresh) {
-              resolve('刷新成功')
+              resolve('加载成功')
             }
           })
         },
@@ -107,7 +110,7 @@ struct NotificationsPage {
         customRefresh: null
       }
       )
-
+        .layoutWeight(1)
 
     }
     .width('100%')

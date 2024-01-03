@@ -19,7 +19,7 @@ class Api {
     this.axiosInstance = axios.create({
       // 在这里可以添加自定义配置，如 baseURL、headers 等
       baseURL: this.baseUrl(),
-      timeout: 3000,
+      timeout: 20000,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
@@ -118,7 +118,7 @@ class Api {
         }else if(code == '404'){
           msg = '参数错误404'
         }else {
-          msg = error.message + "_" + error.code
+          msg = error.message + "__" + error.code
         }
     }
 

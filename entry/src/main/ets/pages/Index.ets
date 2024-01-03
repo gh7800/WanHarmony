@@ -10,6 +10,25 @@ import { GlobalContext } from '../utils/GlobalContext'
 struct Index {
   aboutToAppear() {
     preferenceUtil.getPreferences(getContext())
+
+    setTimeout(()=>{
+      var url = 'pages/LoginPage'
+
+      preferenceUtil.getString(constantUtil.TOKEN)
+        .then((data) => {
+          if (data) {
+            GlobalContext.getContext().setValue(constantUtil.TOKEN,data)
+            url = 'pages/MainPage'
+          }
+        })
+        .catch((err) => {
+          toastUtil.show(err)
+        })
+        .finally(() => {
+          this.startPage(url)
+        })
+
+    },1500)
   }
 
   build() {
@@ -33,21 +52,6 @@ struct Index {
           .margin({ top: 30 })
           .width(150)
           .onClick(() => {
-            var url = 'pages/LoginPage'
-
-            preferenceUtil.getString(constantUtil.TOKEN)
-              .then((data) => {
-                if (data) {
-                  GlobalContext.getContext().setValue(constantUtil.TOKEN,data)
-                  url = 'pages/MainPage'
-                }
-              })
-              .catch((err) => {
-                toastUtil.show(err)
-              })
-              .finally(() => {
-                this.startPage(url)
-              })
 
           })
       }
