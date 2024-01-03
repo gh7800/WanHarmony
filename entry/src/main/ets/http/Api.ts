@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '@ohos/axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from '@ohos/axios';
 import constantUtil from '../utils/ConstantUtil';
 import { GlobalContext } from '../utils/GlobalContext';
 import logUtil from '../utils/LogUtil';
@@ -52,7 +52,7 @@ class Api {
 
   // 发送 GET 请求
   public async get(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
-    return await this.axiosInstance.get<ApiResponse>(url, params)
+    return await this.axiosInstance.get<ApiResponse>(url, { params })
       .then(response => {
         var apiResponse = this.handleResponse(response)
         if (apiResponse.success) {
@@ -107,8 +107,21 @@ class Api {
   private handleError(error: any){
     // 这里可以添加一些全局的错误处理逻辑
     logUtil.error('请求错误__' + error)
+
+    var msg  = error;
+    if(axios.isAxiosError(error)){
+        var code = error.code
+        if(code >= '500'){
+          msg = '服务器返回错误_'+code
+        }else if(code == '401'){
+          msg = '认证错误'
+        }else if(code == '404'){
+          msg = '参数错误404'
+        }
+    }
+
+    return new ApiResponse(false,null,msg)
     //return Promise.reject(error);
-    return new ApiResponse(false,null,error)
   }
 }
 
