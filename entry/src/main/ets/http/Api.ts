@@ -111,12 +111,14 @@ class Api {
     var msg  = error;
     if(axios.isAxiosError(error)){
         var code = error.code
-        if(code >= '500'){
+        if(code >= '500' && code < '600'){
           msg = '服务器返回错误_'+code
         }else if(code == '401'){
           msg = '认证错误'
         }else if(code == '404'){
           msg = '参数错误404'
+        }else {
+          msg = error.message + "_" + error.code
         }
     }
 
