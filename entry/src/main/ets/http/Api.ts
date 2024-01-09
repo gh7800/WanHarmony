@@ -44,7 +44,7 @@ class Api {
         return config
       },
       error => {
-        logUtil.error('拦截器_'+error)
+        logUtil.error('拦截器_' + error)
         return Promise.reject(error)
       }
     );
@@ -58,7 +58,8 @@ class Api {
         if (apiResponse.success) {
           return apiResponse
         } else {
-          throw new Error(apiResponse.message)
+          //throw new Error(apiResponse.message)
+          this.handleError(apiResponse.message)
         }
       })
       .catch(this.handleError)
@@ -74,10 +75,10 @@ class Api {
         if (apiResponse.success) {
           return apiResponse
         } else {
-          throw new Error(apiResponse.message)
+          this.handleError(apiResponse.message)
         }
       })
-      .catch(this.handleError)
+    .catch(this.handleError)
   }
 
   //取消请求
@@ -104,26 +105,36 @@ class Api {
   }
 
   // 处理请求错误
-  private handleError(error: any){
+  private handleError(error: any) {
     // 这里可以添加一些全局的错误处理逻辑
-    logUtil.error('请求错误__' + error)
+    // logUtil.error('请求错误__' + error)
 
-    var msg  = error;
-    if(axios.isAxiosError(error)){
-        var code = error.code
-        if(code >= '500' && code < '600'){
-          msg = '服务器返回错误_'+code
-        }else if(code == '401'){
-          msg = '认证错误'
-        }else if(code == '404'){
-          msg = '参数错误404'
-        }else {
-          msg = error.message + "_" + error.code
-        }
+    var msg = error;
+    if (axios.isAxiosError(error)) {
+      var response = error.response
+
+      logUtil.error(JSON.stringify(response.data) + '___' + response.status)
+
+      /*
+      var status = response.status
+      if (status >= 500 && status < 600) {
+        msg = '服务器错误_' + status
+      } else if (status == 401) {
+        msg = '认证错误'
+      } else if (status == 404) {
+        msg = '参数错误404'
+      } else {
+        msg = JSON.stringify(error.response.data.message)
+      }*/
+
+      msg = error.response.data.message
+
+    } else {
+      msg = '其他错误___' + error
     }
 
-    return new ApiResponse(false,null,msg)
-    //return Promise.reject(error);
+    return Promise.reject(msg);
+    // return new ApiResponse(false, null, msg)
   }
 }
 

@@ -40,7 +40,7 @@ struct NotificationsPage {
         this.isRefresh = true
       })
       .catch(error => {
-        toastUtil.show(error)
+        toastUtil.show(error,9000)
       })
   }
 

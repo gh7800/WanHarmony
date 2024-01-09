@@ -1,8 +1,8 @@
 import promptAction from '@ohos.promptAction'
 
 class ToastUtil {
-  show(msg: any) {
-    promptAction.showToast({ message: msg + '' })
+  show(msg: any,duration : number = 1500) {
+    promptAction.showToast({ message: msg + '' ,duration})
   }
 }
 

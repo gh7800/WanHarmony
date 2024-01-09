@@ -4,7 +4,7 @@ export default class ApiResponse<T = any> {
   data: T;
   success: boolean;
   message: string;
-  pagination : PaginationModel;
+  pagination : PaginationModel = null;
 
   constructor(success : boolean,data : T,message : string) {
     if(!success){
