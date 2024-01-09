@@ -19,7 +19,7 @@ class Api {
     this.axiosInstance = axios.create({
       // 在这里可以添加自定义配置，如 baseURL、headers 等
       baseURL: this.baseUrl(),
-      timeout: 3000,
+      timeout: 20000,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + this.token
@@ -30,10 +30,10 @@ class Api {
     this.axiosInstance.interceptors.request.use(
       config => {
         //可添加token等
-        /*logUtil.error('token_' + this.token)
+        logUtil.error('token_' + this.token)
         if(this.token){
           config.headers.set('Authorization','Bearer '+this.token)
-        }*/
+        }
 
         console.error("Request：", config.method + '__' + config.baseURL + config.url)
 
@@ -54,7 +54,7 @@ class Api {
   public async get(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
     return await this.axiosInstance.get<ApiResponse>(url, { params })
       .then(response => {
-        var apiResponse = this.handleResponse(response)
+        let apiResponse = this.handleResponse(response)
         if (apiResponse.success) {
           return apiResponse
         } else {
@@ -71,7 +71,7 @@ class Api {
       params: params
     })
       .then(response => {
-        var apiResponse = this.handleResponse(response)
+        let apiResponse = this.handleResponse(response)
         if (apiResponse.success) {
           return apiResponse
         } else {
@@ -111,7 +111,7 @@ class Api {
 
     var msg = error;
     if (axios.isAxiosError(error)) {
-      var response = error.response
+      let response = error.response
 
       logUtil.error(JSON.stringify(response.data) + '___' + response.status)
 
