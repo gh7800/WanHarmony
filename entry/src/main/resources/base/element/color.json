@@ -35,6 +35,18 @@
     {
       "name": "grayNormal",
       "value": "#FF8D8888"
+    },
+    {
+      "name": "red",
+      "value": "#FF0000"
+    },
+    {
+      "name": "yellow",
+      "value": "#FFFF00"
+    },
+    {
+      "name": "orange",
+      "value": "#FFA500"
     }
 
   ]

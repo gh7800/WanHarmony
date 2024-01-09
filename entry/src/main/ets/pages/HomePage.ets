@@ -76,8 +76,7 @@ export struct HomePage {
                     router.pushUrl({ url: 'pages/NotificationsPage' })
                     break
                   case 2:
-                    preferenceUtil.clear()
-                    router.replaceUrl({ url: 'pages/LoginPage' })
+
                     break
 
                   default:
