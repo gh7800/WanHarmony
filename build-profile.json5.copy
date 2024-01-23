@@ -1,0 +1,41 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storePassword": "0000001AB3A087ECA670FEA84A0C86A5B0196399029DC2E0BCE9E998DC990D8D3B78603D86D2C518D4E4",
+          "certpath": "D:/keystore/发布证书.cer",
+          "keyAlias": "harmony",
+          "keyPassword": "0000001A94F0CFC5E75169B15B580E5E6EBA55C9BECF6B0AD27013E1CE6895A11E901983F52B62857C7A",
+          "profile": "D:/keystore/wanHarmonyRelease.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "D:/keystore/WanHarmony.p12"
+        }
+      }
+    ],
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

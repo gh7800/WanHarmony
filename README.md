@@ -3,6 +3,7 @@
 #### 1、项目 WanHarmony
 #### 2、ts → ArkTs 方舟ts 开发语言
 #### 3、ArkUI 方舟ui UI框架
+#### 4、复制一份 build-profile.json5 
 
 ![ArkTs](/image/s2.png)
 ![ArkTs](/image/s4.png)
