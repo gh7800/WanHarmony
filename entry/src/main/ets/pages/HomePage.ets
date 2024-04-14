@@ -75,8 +75,8 @@ export struct HomePage {
                   case 0:
                     router.pushUrl({ url: 'pages/NotificationsPage' })
                     break
-                  case 2:
-
+                  case 1:
+                    router.pushUrl({ url: 'pages/ReportPage' })
                     break
 
                   default:

@@ -5,6 +5,7 @@ import toastUtil from '../utils/ToastUtil'
 import logUtil from '../utils/LogUtil'
 import { GlobalContext } from '../utils/GlobalContext'
 
+//闪屏页 -- 最先显示
 @Entry
 @Component
 struct Index {

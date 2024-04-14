@@ -4,6 +4,7 @@
     "pages/LoginPage",
     "pages/MainPage",
     "pages/SettingPage",
+    "pages/ReportPage",
     "pages/NotificationsPage"
   ]
 }

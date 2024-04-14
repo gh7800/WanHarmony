@@ -1,3 +1,7 @@
+/**
+ * 全局的
+ */
+
 export class GlobalContext {
   constructor() {
   }

@@ -4,6 +4,7 @@ import logUtil from './LogUtil'
 
 /**
  * K-V 首选项
+ * 异步函数
  */
 
 class PreferenceUtil {

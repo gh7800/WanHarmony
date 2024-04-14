@@ -4,6 +4,7 @@ import { GlobalContext } from '../utils/GlobalContext';
 import logUtil from '../utils/LogUtil';
 import preferenceUtil from '../utils/PreferencesUtil';
 import ApiResponse from './ApiRsponse';
+import router from '@ohos.router'
 
 
 // 创建一个自定义的 HTTP 客户端类
@@ -115,17 +116,17 @@ class Api {
 
       logUtil.error(JSON.stringify(response.data) + '___' + response.status)
 
-      /*
       var status = response.status
       if (status >= 500 && status < 600) {
         msg = '服务器错误_' + status
       } else if (status == 401) {
         msg = '认证错误'
+        router.replaceUrl({ url: 'pages/LoginPage' }, router.RouterMode.Single)
       } else if (status == 404) {
         msg = '参数错误404'
       } else {
         msg = JSON.stringify(error.response.data.message)
-      }*/
+      }
 
       msg = error.response.data.message
 
