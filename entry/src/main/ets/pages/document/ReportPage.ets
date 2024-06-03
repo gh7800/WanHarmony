@@ -1,4 +1,4 @@
-import { TitleBarComponent } from '../view/TitleBarComponent'
+import { TitleBarComponent } from '../../view/TitleBarComponent'
 
 @Entry
 @Component

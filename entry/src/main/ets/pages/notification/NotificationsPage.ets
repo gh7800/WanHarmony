@@ -2,21 +2,23 @@ import { PullToRefresh } from '@ohos/pulltorefresh/src/main/ets/components/PullT
 import {
   PullToRefreshConfigurator
 } from '@ohos/pulltorefresh/src/main/ets/components/PullToRefresh/PullToRefreshConfigurator'
-import api from '../http/Api'
-import ApiResponse from '../http/ApiRsponse'
-import NotificationModel from '../model/NotificationModel'
-import toastUtil from '../utils/ToastUtil'
-import { TitleBarComponent } from '../view/TitleBarComponent'
+import router from '@ohos.router'
+import api from '../../http/Api'
+import ApiResponse from '../../http/ApiRsponse'
+import NotificationModel from '../../model/NotificationModel'
+import toastUtil from '../../utils/ToastUtil'
+import { TitleBarComponent } from '../../view/TitleBarComponent'
+import routerUtils from '../../utils/RouterUtils'
 
 @Entry
 @Component
 struct NotificationsPage {
-  @State data: Array<NotificationModel> = null
+  @State data: Array<NotificationModel> = new Array()
   private scroller = new Scroller()
   private page = 1
   @State isRefresh : boolean = false
   private refreshConfig = new PullToRefreshConfigurator()
-    .setRefreshColor('#ffcb3d3d')
+    .setRefreshColor('#FF1874D7')
 
   aboutToAppear() {
     this.getData()
@@ -40,7 +42,7 @@ struct NotificationsPage {
         }
       })
       .catch(error => {
-        toastUtil.show(error,9000)
+        toastUtil.show(error)
       })
       .finally(()=>{
         this.isRefresh = true
@@ -67,6 +69,16 @@ struct NotificationsPage {
             Text('创建时间：' + item.created_at).width('100%').textAlign(TextAlign.End).fontColor($r('app.color.c6'))
               .fontSize(14)
           }
+          .onClick(event => {
+            var item = this.data[index]
+            toastUtil.show(item.title)
+            var param = {
+              title : item.title,
+              uuid: item.uuid
+            }
+            //router.pushUrl({url:'pages/notification/NotificationDetailPage',params: param})
+            routerUtils.pushUrl({url:'pages/notification/NotificationDetailPage',params: param})
+          })
         }
         .border({ radius: 5 })
         .padding({ top: 5, left: 5, right: 5, bottom: 5 })
@@ -81,7 +93,7 @@ struct NotificationsPage {
 
   build() {
     Column() {
-      TitleBarComponent({ title: '通知', menu: '更多' })
+      TitleBarComponent({ title: '通知',menuIcon:'app.media.ic_back' })
 
       PullToRefresh({
         data: $data,

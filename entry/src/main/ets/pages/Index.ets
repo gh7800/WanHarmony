@@ -2,10 +2,12 @@ import router from '@ohos.router'
 import preferenceUtil from '../utils/PreferencesUtil'
 import constantUtil from '../utils/ConstantUtil'
 import toastUtil from '../utils/ToastUtil'
-import logUtil from '../utils/LogUtil'
 import { GlobalContext } from '../utils/GlobalContext'
 
-//闪屏页 -- 最先显示
+/**
+ * 闪屏页 -- 最先显示
+ * 输入page快速创建页面
+ */
 @Entry
 @Component
 struct Index {

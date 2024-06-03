@@ -1,4 +1,4 @@
-@Preview
+// @Preview
 @Component
 export struct CommonTitleContent {
   @State title: string = 'title'

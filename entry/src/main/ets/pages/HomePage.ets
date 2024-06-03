@@ -6,7 +6,7 @@ import logUtil from '../utils/LogUtil'
 import preferenceUtil from '../utils/PreferencesUtil'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 
-@Entry
+// @Entry
 @Component
 export struct HomePage {
   @State realName: string = ''
@@ -73,10 +73,10 @@ export struct HomePage {
               .onClick((event) => {
                 switch (index) {
                   case 0:
-                    router.pushUrl({ url: 'pages/NotificationsPage' })
+                    router.pushUrl({ url: 'pages/notification/NotificationsPage' })
                     break
                   case 1:
-                    router.pushUrl({ url: 'pages/ReportPage' })
+                    router.pushUrl({ url: 'pages/document/ReportPage' })
                     break
 
                   default:

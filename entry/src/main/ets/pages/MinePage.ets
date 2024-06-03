@@ -10,7 +10,7 @@ import toastUtil from '../utils/ToastUtil'
 import { MediaHelper } from '../manager/MediaHelper'
 // import {} from '@ohos/dialogs'
 
-@Entry
+// @Entry
 @Component
 export struct MinePage {
   @State isRefreshing: boolean = false
