@@ -22,7 +22,7 @@ struct NotificationDetailPage {
 
     build() {
         Column() {
-            TitleBarComponent({ title: this.title ,menuIcon:'app.media.ic_back',clickMenu : ()=>{
+            TitleBarComponent({ title: this.title ,menuIcon:'ic_points.png',clickMenu : ()=>{
                 toastUtil.show(this.title)
             }})
 

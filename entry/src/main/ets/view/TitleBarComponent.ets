@@ -7,7 +7,7 @@ import logUtil from '../utils/LogUtil'
 export struct TitleBarComponent {
   @Prop title: string
   @State menu ?: string = ''
-  @State menuIcon ?: string = ''
+  @State menuIcon ?: string = '' //传递 menuIcon:'ic_back.png'
   private isNeedBack : boolean = true
   clickBack: () => void //back
   clickMenu: () => void //右侧menu点击事件回调
@@ -51,7 +51,7 @@ export struct TitleBarComponent {
           }
         })
 
-      Image($r(this.menuIcon))
+      Image($rawfile(this.menuIcon))
         .height(30)
         .width(30)
         .margin({right:16})

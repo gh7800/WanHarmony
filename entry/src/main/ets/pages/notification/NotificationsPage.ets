@@ -93,7 +93,7 @@ struct NotificationsPage {
 
   build() {
     Column() {
-      TitleBarComponent({ title: '通知',menuIcon:'app.media.ic_back' })
+      TitleBarComponent({ title: '通知' })
 
       PullToRefresh({
         data: $data,
