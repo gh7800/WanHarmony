@@ -17,7 +17,7 @@ import { TitleContentComponent } from '../../view/TitleContentComponent'
 struct NotificationDetailPage {
   @State title: string = ""
   @State uuid: string = ""
-  @State notificationModel: NotificationModel = null
+  @State notificationModel: NotificationModel = new NotificationModel() //必须初始化new
 
   loading = new CustomDialogController({
     builder: LoadingDialog(),
@@ -57,14 +57,11 @@ struct NotificationDetailPage {
       } })
 
       ColumnSplit() {
-        TitleContentComponent({ title: '标题：', content: this.title })
-        TitleContentComponent({ title: '内容：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
-        TitleContentComponent({ title: '标题：', content: '' })
+
+        TitleContentComponent({ title: '标题：', content: this.notificationModel.title ,mHeight:'40'})
+        TitleContentComponent({ title: '内容：', content: this.notificationModel.content })
+        TitleContentComponent({ title: '创建时间：', content: this.notificationModel.created_at ,mHeight:'40'})
+
       }
       .backgroundColor($r('app.color.f2'))
 
