@@ -13,10 +13,6 @@ export struct TitleBarComponent {
   clickMenu: () => void //右侧menu点击事件回调
   bgColor = $r('app.color.main')
 
-  aboutToAppear(){
-    logUtil.error(this.menuIcon)
-  }
-
   build() {
     Row() {
       Image($r('app.media.ic_back'))

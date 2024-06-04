@@ -1,9 +1,12 @@
+import stringUtil from './StringUtil'
 class LogUtil {
   error(msg: string | number | boolean) {
-    console.error(msg + '')
+    var str = msg + ''
+    str = stringUtil.replaceStr(str,'/','-')
+    console.error(str)
   }
 
-  err(tag : string,msg : any){
+  errorAny(tag : string,msg : any){
     console.error(tag,msg)
   }
 

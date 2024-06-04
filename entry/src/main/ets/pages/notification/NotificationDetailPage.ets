@@ -1,7 +1,12 @@
 import router from '@ohos.router'
+import api from '../../http/Api'
+import ApiResponse from '../../http/ApiRsponse'
+import NotificationModel from '../../model/NotificationModel'
 import logUtil from '../../utils/LogUtil'
 import toastUtil from '../../utils/ToastUtil'
+import LoadingDialog from '../../view/LoadingDialog'
 import { TitleBarComponent } from '../../view/TitleBarComponent'
+import { TitleContentComponent } from '../../view/TitleContentComponent'
 
 /**
  * 这是：通知详情
@@ -10,38 +15,63 @@ import { TitleBarComponent } from '../../view/TitleBarComponent'
 @Entry
 @Component
 struct NotificationDetailPage {
-    @State title : string = ""
-    @State uuid : string = ""
+  @State title: string = ""
+  @State uuid: string = ""
+  @State notificationModel: NotificationModel = null
 
-    aboutToAppear(){
-        this.uuid = router.getParams()['uuid']
-        this.title = router.getParams()['title']
-
-        logUtil.error(this.uuid + this.title)
+  loading = new CustomDialogController({
+    builder: LoadingDialog(),
+    customStyle: true,
+    cancel: () => {
+      toastUtil.show('已取消')
     }
+  })
 
-    build() {
-        Column() {
-            TitleBarComponent({ title: this.title ,menuIcon:'ic_points.png',clickMenu : ()=>{
-                toastUtil.show(this.title)
-            }})
+  aboutToAppear() {
+    this.uuid = router.getParams()['uuid']
+    this.title = router.getParams()['title']
 
-            Column() {
-                Text('页面')
-                    .fontSize(24)
-                    .margin({ top: 20 })
-                Button('Go Back')
-                    .margin({ top: 20 })
-                    .onClick(() => {
-                        router.back()
-                    })
-            }
-            .width('100%')
-            .height('100%')
-            .justifyContent(FlexAlign.Center)
-            .alignItems(HorizontalAlign.Center)
-        }
+    this.loading.open()
+    api.get("api/notice/message/"+this.uuid).then((result: ApiResponse<NotificationModel>) => {
+      if (result.success) {
+        this.notificationModel = result.data
+        logUtil.errorAny('model',this.notificationModel)
+      } else {
+        toastUtil.show(result.message)
+      }
+    })
+      .catch(error => {
+        toastUtil.show(error)
+      })
+      .finally(() => {
+        setTimeout(()=>{
+          this.loading.close()
+        },1000)
+      })
+  }
+
+  build() {
+    Column() {
+      TitleBarComponent({ title: this.title, menuIcon: 'ic_points.png', clickMenu: () => {
+        toastUtil.show(this.title)
+      } })
+
+      ColumnSplit() {
+        TitleContentComponent({ title: '标题：', content: this.title })
+        TitleContentComponent({ title: '内容：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+        TitleContentComponent({ title: '标题：', content: '' })
+      }
+      .backgroundColor($r('app.color.f2'))
+
     }
+    .width('100%')
+    .height('100%')
+  }
 }
 
 

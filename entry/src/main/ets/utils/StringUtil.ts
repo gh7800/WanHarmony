@@ -7,6 +7,10 @@ class StringUtil{
     return !!str && str.trim() !== ''
   }
 
+  replaceStr(str : string,p : string ,p1 : string = '') : string{
+    str.replace(p,p1)
+    return
+  }
 
 }
 const stringUtil = new StringUtil()

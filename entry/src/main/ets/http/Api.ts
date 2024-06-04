@@ -36,10 +36,10 @@ class Api {
           config.headers.set('Authorization','Bearer '+this.token)
         }
 
-        console.error("Request：", config.method + '__' + config.baseURL + config.url)
+        logUtil.error("Request：" + config.method + '__' + config.baseURL + config.url)
 
         if (config.params) {
-          console.error('Request params：', JSON.stringify(config.params))
+          logUtil.error('Request params：' + JSON.stringify(config.params))
         }
 
         return config
