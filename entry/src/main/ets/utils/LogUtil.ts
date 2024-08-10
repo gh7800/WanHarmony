@@ -7,8 +7,8 @@ class LogUtil {
 
   }
 
-  errorAny(tag : string,msg : any){
-    console.error(tag,msg)
+  errorAny(msg : any){
+    console.error(msg)
   }
 
   errorJson(tag : any){
