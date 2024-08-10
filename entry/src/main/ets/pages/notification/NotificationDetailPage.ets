@@ -35,7 +35,7 @@ struct NotificationDetailPage {
     api.get("api/notice/message/"+this.uuid).then((result: ApiResponse<NotificationModel>) => {
       if (result.success) {
         this.notificationModel = result.data
-        logUtil.errorAny('model',this.notificationModel)
+        //logUtil.errorJson(this.notificationModel)
       } else {
         toastUtil.show(result.message)
       }

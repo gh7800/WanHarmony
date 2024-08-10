@@ -27,19 +27,21 @@ class Api {
       },
     });
 
+
     // 添加请求拦截器
     this.axiosInstance.interceptors.request.use(
       config => {
         //可添加token等
-        logUtil.error('token_' + this.token)
+        //console.error('token_' + this.token)
         if(this.token){
           config.headers.set('Authorization','Bearer '+this.token)
         }
 
-        logUtil.error("Request：" + config.method + '__' + config.baseURL + config.url)
+        //console.error("Request：" + config.method + '__' + config.baseURL + config.url)
+        //logUtil.error(this.baseUrl() + '_' + config.url)
 
         if (config.params) {
-          logUtil.error('Request params：' + JSON.stringify(config.params))
+          logUtil.errorJson(config.params)
         }
 
         return config
@@ -53,6 +55,7 @@ class Api {
 
   // 发送 GET 请求
   public async get(url: string, params: Record<string, any> = {}): Promise<ApiResponse> {
+
     return await this.axiosInstance.get<ApiResponse>(url, { params })
       .then(response => {
         let apiResponse = this.handleResponse(response)
@@ -93,7 +96,8 @@ class Api {
   // 处理响应拦截
   private handleResponse<T>(response: AxiosResponse<T> | null): T {
     // 检查响应对象是否存在
-    console.error('response--：', JSON.stringify(response.data))
+    //console.error('response--：', JSON.stringify(response.data))
+    logUtil.errorJson(response.data)
 
     if (response && response.data !== undefined && response.data !== null) {
       return response.data;
@@ -114,7 +118,9 @@ class Api {
     if (axios.isAxiosError(error)) {
       let response = error.response
 
-      logUtil.error(JSON.stringify(response.data) + '___' + response.status)
+      //logUtil.error(JSON.stringify(response.data) + '___' + response.status)
+      logUtil.error(response.status)
+      logUtil.errorJson(response.data)
 
       var status = response.status
       if (status >= 500 && status < 600) {

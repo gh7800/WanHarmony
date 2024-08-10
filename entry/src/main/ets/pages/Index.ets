@@ -50,7 +50,7 @@ struct Index {
           .margin({ top: 10 })
           .fontWeight(FontWeight.Bold)
 
-        Button('开始体验', { type: ButtonType.Normal, stateEffect: true })
+        Button('移动办公', { type: ButtonType.Normal, stateEffect: true })
           .borderRadius(20)
           .margin({ top: 30 })
           .width(150)
