@@ -3,6 +3,7 @@ import promptAction from '@ohos.promptAction'
 import preferenceUtil from '../utils/PreferencesUtil'
 import { TitleBarComponent } from '../view/TitleBarComponent'
 import toastUtil from '../utils/ToastUtil'
+import { AppGlobalContext } from '../utils/AppGlobalContext'
 
 @Entry
 @Component
@@ -15,7 +16,6 @@ struct SettingPage {
     Column() {
       TitleBarComponent({ title: this.title, menu: '···', clickMenu: () => {
         this.title = "setting"
-        console.error("123")
       } })
 
       Column() {
@@ -47,6 +47,7 @@ struct SettingPage {
               if (data.index == 0) {
                 toastUtil.show('取消')
               } else {
+                AppGlobalContext.getContext().clear()
                 preferenceUtil.clear()
                 router.clear()
                 router.replaceUrl({ url: 'pages/LoginPage' })

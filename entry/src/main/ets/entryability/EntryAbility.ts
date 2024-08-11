@@ -1,7 +1,7 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
-import { GlobalContext } from '../utils/GlobalContext';
+import { AppGlobalContext } from '../utils/AppGlobalContext';
 import logUtil from '../utils/LogUtil';
 import preferenceUtil from '../utils/PreferencesUtil';
 
@@ -21,7 +21,7 @@ export default class EntryAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     preferenceUtil.getPreferences(this.context)
-    GlobalContext.getContext().setValue('context',this.context.getApplicationContext())
+    AppGlobalContext.getContext().setValue('context',this.context.getApplicationContext())
     var dir = this.context.filesDir
     logUtil.error(dir)
 

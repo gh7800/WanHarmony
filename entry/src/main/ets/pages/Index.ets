@@ -2,7 +2,7 @@ import router from '@ohos.router'
 import preferenceUtil from '../utils/PreferencesUtil'
 import constantUtil from '../utils/ConstantUtil'
 import toastUtil from '../utils/ToastUtil'
-import { GlobalContext } from '../utils/GlobalContext'
+import { AppGlobalContext } from '../utils/AppGlobalContext'
 
 /**
  * 闪屏页 -- 最先显示
@@ -20,7 +20,7 @@ struct Index {
       preferenceUtil.getString(constantUtil.TOKEN)
         .then((data) => {
           if (data) {
-            GlobalContext.getContext().setValue(constantUtil.TOKEN,data)
+            AppGlobalContext.getContext().setValue(constantUtil.TOKEN,data)
             url = 'pages/MainPage'
           }
         })

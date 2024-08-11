@@ -30,7 +30,7 @@ class PreferenceUtil {
       if (err) {
         console.error('保存失败_err', err)
       } else {
-        console.error('保存成功')
+        console.error('保存成功-' + value)
       }
     })
 

@@ -10,10 +10,17 @@ import { TitleBarComponent } from '../view/TitleBarComponent'
 @Component
 export struct HomePage {
   @State realName: string = ''
-  private menuTitle: string[] = ['通知', '请示', '内部发文', '公文流转', '用车', '会议', '资产管理', '公章证照']
+  private menuTitle: string[] = [
+    '通知', '请示','总办会','党委会','董事会',
+    '内部发文', '公文流转', '用车', '会议', '资产管理',
+    '公章证照','周例会','督办管理','安全管理','采购管理',
+    '企业授权','合同管理','介绍信']
   private menuIcon =
-    [$r('app.media.icon_home_tongzhi'), $r('app.media.icon_home_wenjian'), $r('app.media.icon_home_jiancha'), $r('app.media.icon_home_yuedu'),
-    $r('app.media.icon_home_cheliang'), $r('app.media.icon_home_meeting'), $r('app.media.icon_home_property'), $r('app.media.icon_home_shenpi')]
+    [
+    $r('app.media.icon_home_tongzhi'), $r('app.media.icon_home_wenjian'), $r('app.media.icon_home_wenjian'), $r('app.media.icon_home_wenjian'), $r('app.media.icon_home_wenjian'),
+    $r('app.media.icon_home_jiancha'), $r('app.media.icon_home_yuedu'), $r('app.media.icon_home_cheliang'), $r('app.media.icon_home_meeting'), $r('app.media.icon_home_property'),
+    $r('app.media.icon_home_shenpi'),$r('app.media.icon_jieshaoxin'),
+    ]
 
   aboutToAppear() {
 
@@ -50,7 +57,7 @@ export struct HomePage {
       .justifyContent(FlexAlign.SpaceBetween)
 
       Column() {
-        GridRow({ columns: 4 }) {
+        GridRow({ columns: 5 }) {
           ForEach(this.menuTitle, (item, index) => {
             GridCol() {
               Column() {

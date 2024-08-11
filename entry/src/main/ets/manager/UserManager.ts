@@ -1,7 +1,7 @@
 import UserModel from '../model/UserModel'
 import constantUtil from '../utils/ConstantUtil'
 import ConstantUtil from '../utils/ConstantUtil'
-import { GlobalContext } from '../utils/GlobalContext'
+import { AppGlobalContext } from '../utils/AppGlobalContext'
 import preferenceUtil from '../utils/PreferencesUtil'
 
 /**
@@ -15,7 +15,7 @@ class UserManager {
     preferenceUtil.save(ConstantUtil.COMPANY_UUID,userModel.company_uuid)
     preferenceUtil.save(ConstantUtil.USER_UUID,userModel.uuid)
     preferenceUtil.save(ConstantUtil.TOKEN,userModel.token)
-    GlobalContext.getContext().setValue(constantUtil.TOKEN,userModel.token)
+    AppGlobalContext.getContext().setValue(constantUtil.TOKEN,userModel.token)
   }
 
 }
