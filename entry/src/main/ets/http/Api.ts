@@ -10,7 +10,7 @@ import router from '@ohos.router'
 // 创建一个自定义的 HTTP 客户端类
 class Api {
   private axiosInstance: AxiosInstance;
-  private token : string = '';
+  private token = AppGlobalContext.getContext().getValue(constantUtil.TOKEN);
 
   private baseUrl() {
     return 'http://xcoa.hwapp.site/'
@@ -23,7 +23,7 @@ class Api {
       timeout: 20000,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + AppGlobalContext.getContext().getValue(constantUtil.TOKEN).toString()
+        'Authorization': 'Bearer ' + this.token
       },
     });
 
@@ -31,15 +31,14 @@ class Api {
     // 添加请求拦截器
     this.axiosInstance.interceptors.request.use(
       config => {
-        this.token = AppGlobalContext.getContext().getValue(constantUtil.TOKEN).toString();
         //可添加token等
-        console.error('token_' + this.token)
+        //console.error('token_' + this.token)
         if(this.token){
           config.headers.set('Authorization','Bearer '+this.token)
         }
 
         //console.error("Request：" + config.method + '__' + config.baseURL + config.url)
-        console.error(this.baseUrl() + '_' + config.url)
+        //logUtil.error(this.baseUrl() + '_' + config.url)
 
         if (config.params) {
           logUtil.errorJson(config.params)
@@ -48,7 +47,7 @@ class Api {
         return config
       },
       error => {
-        console.error('拦截器_' + error)
+        logUtil.error('拦截器_' + error)
         return Promise.reject(error)
       }
     );
@@ -83,12 +82,12 @@ class Api {
           this.handleError(apiResponse.message)
         }
       })
-    .catch(this.handleError)
+      .catch(this.handleError)
   }
 
   //取消请求
   public cancelRequest() {
-    console.error('取消')
+    logUtil.error('取消')
     axios.CancelToken.source()
   }
 
@@ -120,7 +119,7 @@ class Api {
       let response = error.response
 
       //logUtil.error(JSON.stringify(response.data) + '___' + response.status)
-      console.error(response.status + '')
+      logUtil.error(response.status)
       logUtil.errorJson(response.data)
 
       var status = response.status
@@ -135,7 +134,7 @@ class Api {
         msg = JSON.stringify(error.response.data.message)
       }
 
-      //msg = error.response.data.message
+      msg = error.response.data.message
 
     } else {
       msg = '其他错误___' + error
