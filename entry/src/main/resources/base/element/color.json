@@ -10,7 +10,11 @@
     },
     {
       "name": "main",
-      "value": "#FF1874D7"
+      "value": "#00B785"
+    },
+    {
+      "name": "main_pressed",
+      "value": "#075E46"
     },
     {
       "name": "black",
